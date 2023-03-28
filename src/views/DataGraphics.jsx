@@ -1,6 +1,7 @@
 import React from "react";
 import "../index.css";
 import SideBar from "../components/sidebar";
+import Chart from "../components/charts";
 
 function DataGraphics() {
   return (
@@ -13,6 +14,8 @@ function DataGraphics() {
       >
         Default
       </button>
+      <Chart />
+      
     </div>
   );
 }
