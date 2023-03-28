@@ -1,4 +1,4 @@
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiLogInCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { BsGraphUp, BsShareFill } from "react-icons/bs";
 import { RxDashboard } from "react-icons/rx";
@@ -128,6 +128,15 @@ function SideBar() {
               >
                 <BsGraphUp size={20} color="#000" />
                 <span class="flex-1 ml-3 whitespace-nowrap">Follow up</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <BiLogInCircle size={20} color="#000" />
+                <span class="flex-1 ml-3 whitespace-nowrap">Connexions</span>
               </a>
             </li>
             <li>
