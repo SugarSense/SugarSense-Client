@@ -13,16 +13,16 @@ function FollowUp() {
         {
             labels: ['2023-03-28', '2023-03-29', '2023-03-30', '2023-03-31', '2023-04-01', '2023-04-02', '2023-04-03'],
             fill: true,
-            data: [65, 59, 80, 81, 56, 55, 40],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            maxData : [200, 250, 300, 250, 200, 350, 300],
+            data: [152, 177, 258, 176, 125, 344, 247],
+            minData: [120 , 150, 200, 150, 100, 300, 200],
         },
         {
             labels: ['2023-04-04', '2023-04-05', '2023-04-06', '2023-04-07', '2023-04-08', '2023-04-09', '2023-04-10'],
             fill: true,
-            data: [56, 82, 32, 90, 65, 45, 23],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            maxData : [300, 350, 400, 350, 300, 400, 400],
+            data: [239, 288, 209, 246, 82, 286, 122],
+            minData: [255, 300, 255, 300, 255, 300, 255],
         }
     ]
 
@@ -30,7 +30,6 @@ function FollowUp() {
         console.log(e.target.value);
         const selectedData = data.filter(item => item.labels[0] + ' - ' + item.labels[item.labels.length - 1] === e.target.value);
         console.log(selectedData);
-        // make the average of the value and set it to averageWeek
         setAverageWeek((selectedData[0].data.reduce((a, b) => a + b, 0) / selectedData[0].data.length).toFixed(2));
         setHighestWeek(selectedData[0].data.reduce((a, b) => Math.max(a, b)));
         setLowestWeek(selectedData[0].data.reduce((a, b) => Math.min(a, b)));

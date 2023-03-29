@@ -34,6 +34,13 @@ export const options = {
       text: 'Analytics',
     },
   },
+  scales:{
+    y:{
+      min: 0,
+      max: 400,
+    }
+  }
+
 };
 
 const areaChart = (props) => {
@@ -50,13 +57,24 @@ const areaChart = (props) => {
     labels: chartData[0].labels,
     datasets: [
       {
-        fill: true,
-        label: chartData[0].labels[0] + ' - ' + chartData[0].labels[chartData[0].labels.length - 1],
-        data: chartData[0].data,
+        label: 'Max pick',
+        data: chartData[0].maxData,
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Average pick',
+        data: chartData[0].data,
+        borderColor: '#f59607',
+        backgroundColor: '#f59607',
+      },
+      {
+        label: 'Min pick',
+        data: chartData[0].minData,
+        borderColor: '#5fb9ed',
+        backgroundColor: '#5fb9ed',
       }
-    ]
+    ],
   };
 
 
