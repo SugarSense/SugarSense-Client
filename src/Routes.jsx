@@ -15,10 +15,10 @@ function RoutesProvider() {
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
           </Route>

@@ -21,7 +21,7 @@ function Login() {
 
     try {
       await axios
-        .post("http://localhost:9001/auth/login", {
+        .post(`${import.meta.env.VITE_API_PATH}/auth/login`, {
           email,
           password,
         })
@@ -34,7 +34,7 @@ function Login() {
           });
 
           console.log(res.data);
-          window.location.href = "/";
+          window.location.href = "/follow-up";
         });
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {

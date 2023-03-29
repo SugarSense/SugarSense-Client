@@ -1,11 +1,22 @@
-import {BiLogOut} from 'react-icons/bi';
-import {CgProfile} from 'react-icons/cg';
-import {BsGraphUp, BsShareFill} from 'react-icons/bs';
-import {RxDashboard} from 'react-icons/rx';
+import { BiLogOut } from 'react-icons/bi';
+import { CgProfile } from 'react-icons/cg';
+import { BsGraphUp, BsShareFill } from 'react-icons/bs';
+import { RxDashboard } from 'react-icons/rx';
 import React from 'react';
+import Cookies from "universal-cookie";
 
-class SideBar extends React.Component {
-    render() {
+const SideBar = () => {
+    const cookies = new Cookies();
+
+    const handleLogout = async () => {
+        try {
+            cookies.remove("auth_token", { path: "/" });
+            window.location.href = "/login";
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <><nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -72,19 +83,19 @@ class SideBar extends React.Component {
                                 <span class="flex-1 ml-3 whitespace-nowrap">Profil</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <li onClick={handleLogout}>
+                            <p class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <BiLogOut size={25} color="#000" />
-                                <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
-                            </a>
+                                Logout
+                            </p>
                         </li>
                     </ul>
                 </div>
             </aside>
-            </>
+        </>
 
     )
-    }
+
 }
 
 export default SideBar;

@@ -16,7 +16,7 @@ const AuthContextProvider = (props) => {
       if (token) {
         try {
           await axios
-            .get("http://localhost:9001/auth/user", {
+            .get(`${import.meta.env.VITE_API_PATH}/auth/user`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },

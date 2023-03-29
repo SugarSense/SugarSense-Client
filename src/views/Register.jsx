@@ -22,15 +22,18 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:9001/auth/register", {
+      await axios.post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
         email,
         password,
         firstname,
         lastname,
-      });
-      enqueueSnackbar("User registered successfully", {
-        variant: "success",
-      });
+      }).then((res) => {
+        cookies.set("auth_token", res.data.user.token, {path: "/"});
+        enqueueSnackbar("User registered successfully", {
+          variant: "success",
+        });
+        window.location.href = "/follow-up";
+      })
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
         variant: "error",

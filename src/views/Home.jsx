@@ -1,22 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import Cookies from "universal-cookie";
-import "../App.css";
 import "../index.css";
 import "../../public/fonts.css";
 import theme from "../theme";
 
 function Home() {
-  const cookies = new Cookies();
 
-  const handleLogout = async () => {
-    try {
-      cookies.remove("auth_token", {path: "/"});
-      window.location.href = "/login";
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div
@@ -41,10 +30,12 @@ function Home() {
           <a href="#" className="text-xl mr-10">
             Contact
           </a>
-          <a href="#" className="text-xl mr-10">
+          <a href="/login" className="text-xl mr-10">
             Log in
           </a>
-          <button onClick={handleLogout}>Logout</button>
+          <a href="/register" className="text-xl mr-10">
+            Register
+          </a>
         </div>
       </div>
       <div className="flex h-screen">
