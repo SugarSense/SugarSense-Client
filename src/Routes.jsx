@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import Connexions from "./views/Connexions";
 
 function RoutesProvider() {
   return (
@@ -15,6 +16,7 @@ function RoutesProvider() {
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
           <Route path="/data-graphics" element={<DataGraphics />} />
+          <Route path="/connexions" element={<Connexions />} />
         </Route>
       </Routes>
     </BrowserRouter>
