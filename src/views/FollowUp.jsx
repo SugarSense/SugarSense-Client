@@ -48,7 +48,9 @@ function FollowUp() {
                             })}
                         </select>
                     </div>
+                    <div className="w-2/3 m-auto text-center">
                     {chartData.length === 0 ? <p>No data</p> : <AreaCharts data={chartData} />}
+                    </div>
                 </div>
             </div>
         </>
