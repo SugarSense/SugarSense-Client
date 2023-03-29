@@ -1,12 +1,12 @@
 import React from "react";
 import "../index.css";
-import SideBar from "../components/sidebar";
-import Chart from "../components/charts";
+import NavBar from "../components/navBar";
+import VerticalBarChart from "../components/verticalBarChart";
 
 function DataGraphics() {
   return (
     <div className="App">
-      <SideBar />
+      <NavBar />
       <h1>Hello</h1>
       <button
         type="button"
@@ -14,7 +14,7 @@ function DataGraphics() {
       >
         Default
       </button>
-      <Chart />
+      <VerticalBarChart />
       
     </div>
   );
