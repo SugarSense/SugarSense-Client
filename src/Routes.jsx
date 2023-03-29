@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import {Routes, Route, BrowserRouter, Navigate} from "react-router-dom";
 import DataGraphics from "./views/DataGraphics";
 import Home from "./views/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -7,6 +7,7 @@ import Register from "./views/Register";
 import FollowUp from "./views/FollowUp";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
+import UserProfile from "./views/UserProfile";
 
 function RoutesProvider() {
   const cookies = new Cookies();
@@ -21,6 +22,7 @@ function RoutesProvider() {
           <Route element={<PrivateRoutes />}>
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
+            <Route path="/myProfile" element={<UserProfile />} />
           </Route>
         </Routes>
       </BrowserRouter>

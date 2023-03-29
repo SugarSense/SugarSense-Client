@@ -20,6 +20,7 @@ function Login() {
     e.preventDefault();
 
     try {
+      console.log(import.meta.env.VITE_API_PATH);
       await axios
         .post(`${import.meta.env.VITE_API_PATH}/auth/login`, {
           email,
