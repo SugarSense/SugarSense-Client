@@ -1,8 +1,11 @@
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import {Outlet, Navigate} from "react-router-dom";
+import Cookies from "universal-cookie";
 
 function PrivateRoutes() {
-  const loggedIn = true;
+  const cookies = new Cookies();
+  const loggedIn = cookies.get("auth_token");
+
   return loggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
 
