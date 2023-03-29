@@ -1,9 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import Cookies from "universal-cookie";
 import "../App.css";
 import "../index.css";
 
 function Home() {
+  const cookies = new Cookies();
+
+  const handleLogout = async () => {
+    try {
+      cookies.remove("auth_token", {path: "/"});
+      window.location.href = "/login";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1>Home</h1>
@@ -15,6 +27,7 @@ function Home() {
           Default
         </button>
       </Link>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
