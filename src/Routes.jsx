@@ -5,6 +5,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Connexions from "./views/Connexions";
+import Faq from "./views/Faq";
 
 function RoutesProvider() {
   return (
@@ -12,9 +13,10 @@ function RoutesProvider() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<Faq />} />
 
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Home />} />
           <Route path="/data-graphics" element={<DataGraphics />} />
           <Route path="/connexions" element={<Connexions />} />
         </Route>

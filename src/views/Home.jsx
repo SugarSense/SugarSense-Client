@@ -2,6 +2,7 @@ import React from "react";
 import "../index.css";
 import "../../public/fonts.css";
 import theme from "../theme";
+import NavbarHome from "../components/navbarHome";
 
 function Home() {
   return (
@@ -12,25 +13,7 @@ function Home() {
       }}
     >
       <div className="flex justify-between items-center w-full py-4">
-        <div className="flex items-center">
-          <img
-            src="https://cdn.discordapp.com/attachments/1089824944025767996/1090186808614203453/image.png"
-            alt="SugarSense"
-            className="h-12 w-12 mr-2"
-          />
-          <h1 className="text-2xl font-bold">SugarSense</h1>
-        </div>
-        <div className="flex items-center">
-          <a href="#" className="text-xl mr-10">
-            FAQ
-          </a>
-          <a href="#" className="text-xl mr-10">
-            Contact
-          </a>
-          <a href="#" className="text-xl mr-10">
-            Log in
-          </a>
-        </div>
+        <NavbarHome />
       </div>
       <div className="flex h-screen">
         <div className="m-auto flex items-center">
@@ -46,6 +29,32 @@ function Home() {
               Get Started
             </button>
           </div>
+        </div>
+      </div>
+      <div className="flex flex-col items-center">
+        <p className="text-xl my-4">Download the SugarSense app now!</p>
+        <div className="flex pb-4">
+          <a
+            href="https://www.apple.com/app-store/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-2"
+          >
+            <img
+              src="https://www.mysugr.com/static/assets/stores/google-play.svg"
+              alt="Download on the App Store"
+            />
+          </a>
+          <a
+            href="https://play.google.com/store/apps"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://www.mysugr.com/static/assets/stores/apple-store.svg"
+              alt="Get it on Google Play"
+            />
+          </a>
         </div>
       </div>
     </div>
