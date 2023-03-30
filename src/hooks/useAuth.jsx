@@ -24,7 +24,7 @@ const AuthContextProvider = (props) => {
             .then((res) => {
               setUser(res.data.user);
               setLoading(false);
-              console.log(res.data.user);
+              // console.log(res.data.user);
             });
         } catch (err) {
           console.log(err);

@@ -46,7 +46,7 @@ export const options = {
 const areaChart = (props) => {
   const [chartData, setChartData] = useState(props.data);
 
-  console.log(chartData);
+  // console.log(chartData);
 
 
   useEffect(()=> {
@@ -64,7 +64,7 @@ const areaChart = (props) => {
       },
       {
         label: 'Average pick',
-        data: chartData[0].data,
+        data: chartData[0].averageData,
         borderColor: '#f59607',
         backgroundColor: '#f59607',
       },

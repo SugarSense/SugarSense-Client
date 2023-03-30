@@ -25,7 +25,7 @@ function Register() {
       await axios.post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
         email,
         password,
-        firstname,
+        firstname,  
         lastname,
       }).then((res) => {
         cookies.set("auth_token", res.data.user.token, {path: "/"});
