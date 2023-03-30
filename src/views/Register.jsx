@@ -22,18 +22,20 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
-        email,
-        password,
-        firstname,
-        lastname,
-      }).then((res) => {
-        cookies.set("auth_token", res.data.user.token, {path: "/"});
-        enqueueSnackbar("User registered successfully", {
-          variant: "success",
+      await axios
+        .post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
+          email,
+          password,
+          firstname,
+          lastname,
+        })
+        .then((res) => {
+          cookies.set("auth_token", res.data.user.token, {path: "/"});
+          enqueueSnackbar("User registered successfully", {
+            variant: "success",
+          });
+          window.location.href = "/follow-up";
         });
-        window.location.href = "/follow-up";
-      })
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
         variant: "error",
@@ -45,7 +47,7 @@ function Register() {
     <div class="container2">
       <div class="left">
         <div class="header">
-          <h2 class="animation a1">Register</h2>
+          <h1 class="animation a1">Register</h1>
           <h4 class="animation a2">
             Create an account to get access to our services
           </h4>
