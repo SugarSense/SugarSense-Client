@@ -5,8 +5,10 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import FollowUp from "./views/FollowUp";
+import CustomAlert from "./views/CustomAlert";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
+import TestMail from "./views/TestMail";
 
 function RoutesProvider() {
   const cookies = new Cookies();
@@ -21,6 +23,8 @@ function RoutesProvider() {
           <Route element={<PrivateRoutes />}>
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
+            <Route path="/custom-alert" element={<CustomAlert />} />
+            <Route path="/testmail" element={<TestMail />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 export const AuthContext = createContext();
@@ -35,7 +35,7 @@ const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user}}>
+    <AuthContext.Provider value={{ user }}>
       {!loading && props.children}
     </AuthContext.Provider>
   );
