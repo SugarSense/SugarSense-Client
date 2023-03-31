@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useAuth} from "../hooks/useAuth";
-import {FiMail} from "react-icons/fi";
+import {FiCheck, FiMail, FiX, FiXCircle} from "react-icons/fi";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import MultiSelectInput from "../components/MultiSelectInput";
-import {Toaster} from "react-hot-toast";
+import {Toaster, toast} from "react-hot-toast";
+import {enqueueSnackbar, closeSnackbar} from "notistack";
 
 const UserProfile = () => {
   const {user} = useAuth();
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState("");
+  const [avatarFile, setAvatarFile] = useState("");
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState(null);
   const [sex, setSex] = useState(null);
@@ -29,11 +31,21 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const cookies = new Cookies();
 
+  const handleChange = (event) => {
+    const inputValue = event.target.value;
+    const formattedValue = inputValue
+      .replace(/\s/g, "")
+      .replace(/(.{2})/g, "$1 ")
+      .trim();
+    setPhoneNumber(formattedValue);
+  };
+
   useEffect(() => {
     if (user) {
       setAvatar(user.avatar);
       setEmail(user.email);
       setSex(user.sex);
+      setPhoneNumber(user.phoneNumber);
       setDoctorName(user.medical.doctorName);
       setDoctorEmail(user.medical.doctorEmail);
       setDoctorAddress(user.medical.doctorAddress);
@@ -53,14 +65,61 @@ const UserProfile = () => {
   }, []);
 
   const handleModify = async (e) => {
+    const action = (snackbarId) => (
+      <>
+        <button
+          onClick={() => {
+            handleSubmit(e);
+            closeSnackbar(snackbarId);
+          }}
+          style={{
+            color: "white",
+            backgroundColor: "#358c38",
+            borderRadius: "15px",
+            padding: "5px",
+            marginRight: "10px",
+          }}
+        >
+          <FiCheck size={20} />
+        </button>
+        <button
+          onClick={() => {
+            closeSnackbar(snackbarId);
+          }}
+          style={{
+            color: "white",
+            backgroundColor: "#f44336",
+            borderRadius: "15px",
+            padding: "5px",
+          }}
+        >
+          <FiX size={20} />
+        </button>
+      </>
+    );
+
+    enqueueSnackbar("Are you sure of this informations ?", {
+      action,
+    });
+  };
+
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(URL.createObjectURL(file));
+    setAvatarFile(file);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const token = cookies.get("auth_token");
 
     const data = {
       avatar,
+      avatarFile,
       sex,
       height,
       weight,
+      phoneNumber,
       medical: {
         doctorName,
         doctorEmail,
@@ -76,12 +135,14 @@ const UserProfile = () => {
       },
     };
 
-    if (token) {
+    if (token && JSON.stringify(data) !== JSON.stringify(user)) {
       await axios.patch(`${import.meta.env.VITE_API_PATH}/auth/update`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+    } else {
+      toast.error("No changes detected");
     }
   };
 
@@ -136,14 +197,15 @@ const UserProfile = () => {
                           aria-describedby="file_input_help"
                           id="file_input"
                           type={"file"}
-                          onChange={(e) => setAvatar(e.target.files[0])}
-                          value={!loading ? avatar : ""}
+                          onChange={(e) => handleAvatarChange(e)}
+                          accept="image/*"
                         />
+
                         <p
                           class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                           id="file_input_help"
                         >
-                          SVG, PNG, JPG or GIF (MAX. 800x400px).
+                          SVG, PNG, JPG or GIF (MAX. 400x400px).
                         </p>
                       </>
                     ) : (
@@ -156,11 +218,15 @@ const UserProfile = () => {
                             Profile picture URL
                           </label>
                           <input
-                            type="text"
+                            type="url"
                             id="profile_picture"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="https://example.com"
-                            value={!loading ? avatar : ""}
+                            value={
+                              !loading
+                                ? typeof avatar === "string" && avatar
+                                : ""
+                            }
                             onChange={(e) => setAvatar(e.target.value)}
                           />
                         </div>
@@ -249,7 +315,7 @@ const UserProfile = () => {
                     placeholder="07 45 67 89 01"
                     pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
                     value={!loading ? phoneNumber : ""}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
                 {/* <div>
@@ -327,7 +393,7 @@ const UserProfile = () => {
                     Doctor office address
                   </label>
                   <input
-                    type="url"
+                    type="text"
                     id="doctor_address"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="3 rue de la paix, 75000 Paris"
