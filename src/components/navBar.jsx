@@ -62,9 +62,9 @@ const SideBar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <a href="/appointement" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <BsShareFill size={20} color="#000" />
-                                <span class="flex-1 ml-3 whitespace-nowrap">Sharing</span>
+                                <span class="flex-1 ml-3 whitespace-nowrap">Appointement</span>
                             </a>
                         </li>
                         <li>
