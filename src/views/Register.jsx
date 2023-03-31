@@ -57,32 +57,32 @@ function Register() {
   };
 
   return (
-    <div class="container2">
-      <div class="left">
-        <div class="header">
-          <h1 class="animation a1">Register</h1>
-          <h4 class="animation a2">
+    <div className="container2">
+      <div className="left">
+        <div className="header">
+          <h1 className="animation a1">Register</h1>
+          <h4 className="animation a2">
             Create an account to get access to our services
           </h4>
         </div>
-        <div class="form">
+        <div className="form">
           <input
             type="text"
-            class="form-field animation a3"
+            className="form-field animation a3"
             placeholder="First Name"
             value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <input
             type="text"
-            class="form-field animation a3"
+            className="form-field animation a3"
             placeholder="Last Name"
             value={lastname}
             onChange={(e) => setLastName(e.target.value)}
           />
           <input
             type="email"
-            class="form-field animation a3"
+            className="form-field animation a3"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -90,7 +90,7 @@ function Register() {
 
           <select
             id="roles"
-            class="form-field animation a3"
+            className="form-field animation a3"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -100,23 +100,23 @@ function Register() {
           </select>
           <input
             type="password"
-            class="form-field animation a4"
+            className="form-field animation a4"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p class="animation a5">
+          <p className="animation a5">
             <a href="#">Forgot Password</a>
           </p>
-          <p class="animation a5">
+          <p className="animation a5">
             <a href="login">Already have an account?</a>
           </p>
-          <button class="animation a6" onClick={(e) => handleSubmit(e)}>
+          <button className="animation a6" onClick={(e) => handleSubmit(e)}>
             REGISTER
           </button>
         </div>
       </div>
-      <div class="right-register"></div>
+      <div className="right-register"></div>
     </div>
   );
 }
