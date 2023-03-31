@@ -39,8 +39,38 @@ const UserProfile = () => {
       .trim();
     setPhoneNumber(formattedValue);
   };
+  const handleChangeDoctort = (event) => {
+    const inputValue = event.target.value;
+    const formattedValue = inputValue
+      .replace(/\s/g, "")
+      .replace(/(.{2})/g, "$1 ")
+      .trim();
+    setDoctorPhone(formattedValue);
+  };
 
   useEffect(() => {
+    const data = {
+      avatar,
+      avatarFile,
+      sex,
+      height,
+      weight,
+      phoneNumber,
+      medical: {
+        doctorName,
+        doctorEmail,
+        doctorAddress,
+        doctorPhone,
+        bloodType,
+        allergies,
+        medications,
+        chronicDiseases,
+        surgery,
+        vaccinations,
+        other,
+      },
+    };
+
     if (user) {
       setAvatar(user.avatar);
       setEmail(user.email);
@@ -60,47 +90,54 @@ const UserProfile = () => {
       setVaccinations(user.medical.vaccinations);
       setOther(user.medical.other);
       setLoading(false);
+
       console.log(user);
     }
   }, []);
 
   const handleModify = async (e) => {
-    const action = (snackbarId) => (
-      <>
-        <button
-          onClick={() => {
-            handleSubmit(e);
-            closeSnackbar(snackbarId);
-          }}
-          style={{
-            color: "white",
-            backgroundColor: "#358c38",
-            borderRadius: "15px",
-            padding: "5px",
-            marginRight: "10px",
-          }}
-        >
-          <FiCheck size={20} />
-        </button>
-        <button
-          onClick={() => {
-            closeSnackbar(snackbarId);
-          }}
-          style={{
-            color: "white",
-            backgroundColor: "#f44336",
-            borderRadius: "15px",
-            padding: "5px",
-          }}
-        >
-          <FiX size={20} />
-        </button>
-      </>
-    );
+    e.preventDefault();
 
-    enqueueSnackbar("Are you sure of this informations ?", {
-      action,
-    });
+    if (JSON.stringify(data) !== JSON.stringify(user)) {
+      const action = (snackbarId) => (
+        <>
+          <button
+            onClick={() => {
+              handleSubmit(e);
+              closeSnackbar(snackbarId);
+            }}
+            style={{
+              color: "white",
+              backgroundColor: "#358c38",
+              borderRadius: "15px",
+              padding: "5px",
+              marginRight: "10px",
+            }}
+          >
+            <FiCheck size={20} />
+          </button>
+          <button
+            onClick={() => {
+              closeSnackbar(snackbarId);
+            }}
+            style={{
+              color: "white",
+              backgroundColor: "#f44336",
+              borderRadius: "15px",
+              padding: "5px",
+            }}
+          >
+            <FiX size={20} />
+          </button>
+        </>
+      );
+
+      enqueueSnackbar("Are you sure of this informations ?", {
+        action,
+      });
+    } else {
+      toast.error("No changes detected");
+    }
   };
 
   const handleAvatarChange = (event) => {
@@ -135,22 +172,18 @@ const UserProfile = () => {
       },
     };
 
-    if (token && JSON.stringify(data) !== JSON.stringify(user)) {
+    if (token) {
       await axios.patch(`${import.meta.env.VITE_API_PATH}/auth/update`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-    } else {
-      toast.error("No changes detected");
     }
   };
 
   return (
     <>
-      <div>
-        <Toaster />
-      </div>
+      <Toaster />
       <div className="p-4 ml-64 custom-padding-top">
         <h1 className="text-3xl font-bold">My Profile</h1>
         <div className="flex flex-col justify-center">
@@ -316,6 +349,7 @@ const UserProfile = () => {
                     pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
                     value={!loading ? phoneNumber : ""}
                     onChange={(e) => handleChange(e)}
+                    maxLength={14}
                   />
                 </div>
                 {/* <div>
@@ -415,7 +449,8 @@ const UserProfile = () => {
                     placeholder="07 45 67 89 01"
                     pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
                     value={!loading ? doctorPhone : ""}
-                    onChange={(e) => setDoctorPhone(e.target.value)}
+                    onChange={(e) => handleChangeDoctort(e)}
+                    maxLength={14}
                   />
                 </div>
                 <div>
