@@ -9,6 +9,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [role, setRole] = useState("");
   const {enqueueSnackbar} = useSnackbar();
   const cookies = new Cookies();
 
@@ -22,12 +23,24 @@ function Register() {
     e.preventDefault();
 
     try {
+      let data = {
+        email,
+        password,
+        firstname,
+        lastname,
+        role: {
+          name: role,
+          confirmedDoctor: false,
+          accountConfirmed: false,
+        },
+      };
+      if (role === "Patient") {
+        delete data.role.confirmedDoctor;
+      }
+
       await axios
         .post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
-          email,
-          password,
-          firstname,
-          lastname,
+          ...data,
         })
         .then((res) => {
           cookies.set("auth_token", res.data.user.token, {path: "/"});
@@ -74,6 +87,17 @@ function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
+          <select
+            id="roles"
+            class="form-field animation a3"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option selected>Choose a role</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Patient">Patient</option>
+          </select>
           <input
             type="password"
             class="form-field animation a4"
