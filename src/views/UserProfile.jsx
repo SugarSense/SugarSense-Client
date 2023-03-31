@@ -49,28 +49,6 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    const data = {
-      avatar,
-      avatarFile,
-      sex,
-      height,
-      weight,
-      phoneNumber,
-      medical: {
-        doctorName,
-        doctorEmail,
-        doctorAddress,
-        doctorPhone,
-        bloodType,
-        allergies,
-        medications,
-        chronicDiseases,
-        surgery,
-        vaccinations,
-        other,
-      },
-    };
-
     if (user) {
       setAvatar(user.avatar);
       setEmail(user.email);
@@ -98,46 +76,46 @@ const UserProfile = () => {
   const handleModify = async (e) => {
     e.preventDefault();
 
-    if (JSON.stringify(data) !== JSON.stringify(user)) {
-      const action = (snackbarId) => (
-        <>
-          <button
-            onClick={() => {
-              handleSubmit(e);
-              closeSnackbar(snackbarId);
-            }}
-            style={{
-              color: "white",
-              backgroundColor: "#358c38",
-              borderRadius: "15px",
-              padding: "5px",
-              marginRight: "10px",
-            }}
-          >
-            <FiCheck size={20} />
-          </button>
-          <button
-            onClick={() => {
-              closeSnackbar(snackbarId);
-            }}
-            style={{
-              color: "white",
-              backgroundColor: "#f44336",
-              borderRadius: "15px",
-              padding: "5px",
-            }}
-          >
-            <FiX size={20} />
-          </button>
-        </>
-      );
+    // if (JSON.stringify(data) !== JSON.stringify(user)) {
+    const action = (snackbarId) => (
+      <>
+        <button
+          onClick={() => {
+            handleSubmit(e);
+            closeSnackbar(snackbarId);
+          }}
+          style={{
+            color: "white",
+            backgroundColor: "#358c38",
+            borderRadius: "15px",
+            padding: "5px",
+            marginRight: "10px",
+          }}
+        >
+          <FiCheck size={20} />
+        </button>
+        <button
+          onClick={() => {
+            closeSnackbar(snackbarId);
+          }}
+          style={{
+            color: "white",
+            backgroundColor: "#f44336",
+            borderRadius: "15px",
+            padding: "5px",
+          }}
+        >
+          <FiX size={20} />
+        </button>
+      </>
+    );
 
-      enqueueSnackbar("Are you sure of this informations ?", {
-        action,
-      });
-    } else {
-      toast.error("No changes detected");
-    }
+    enqueueSnackbar("Are you sure of this informations ?", {
+      action,
+    });
+    // } else {
+    //   toast.error("No changes detected");
+    // }
   };
 
   const handleAvatarChange = (event) => {
@@ -213,142 +191,142 @@ const UserProfile = () => {
                 File
               </span>
             </label>
-            <form>
-              <div class="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
-                  <div className="flex flex-col w-full">
-                    {checked ? (
-                      <>
+            {/* <form> */}
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+              <div>
+                <div className="flex flex-col w-full">
+                  {checked ? (
+                    <>
+                      <label
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        for="file_input"
+                      >
+                        Upload profile picture
+                      </label>
+                      <input
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        aria-describedby="file_input_help"
+                        id="file_input"
+                        type={"file"}
+                        onChange={(e) => handleAvatarChange(e)}
+                        accept="image/*"
+                      />
+
+                      <p
+                        class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                        id="file_input_help"
+                      >
+                        SVG, PNG, JPG or GIF (MAX. 400x400px).
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div>
                         <label
+                          for="profile_picture"
                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          for="file_input"
                         >
-                          Upload profile picture
+                          Profile picture URL
                         </label>
                         <input
-                          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                          aria-describedby="file_input_help"
-                          id="file_input"
-                          type={"file"}
-                          onChange={(e) => handleAvatarChange(e)}
-                          accept="image/*"
+                          type="url"
+                          id="profile_picture"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="https://example.com"
+                          value={!loading ? avatar : ""}
+                          onChange={(e) => setAvatar(e.target.value)}
                         />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
 
-                        <p
-                          class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                          id="file_input_help"
-                        >
-                          SVG, PNG, JPG or GIF (MAX. 400x400px).
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <div>
-                          <label
-                            for="profile_picture"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Profile picture URL
-                          </label>
-                          <input
-                            type="url"
-                            id="profile_picture"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="https://example.com"
-                            value={!loading ? avatar : ""}
-                            onChange={(e) => setAvatar(e.target.value)}
-                          />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    for="first_name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    id="first_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={!loading && user.firstname}
-                    disabled
-                  />
-                </div>
-                <div>
-                  <label
-                    for="last_name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    id="last_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={!loading && user.lastname}
-                    disabled
-                  />
-                </div>
-                <div>
-                  <label
-                    for="email"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="john.doe@company.com"
-                    value={!loading ? email : ""}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="sex"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Sex
-                  </label>
-                  {/* https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt4_VFq9vjfSb3lkrz48XcaciMD_NA1jsixg&usqp=CAU */}
-                  <select
-                    id="sex"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={!loading ? sex : ""}
-                    onChange={(e) => setSex(e.target.value)}
-                  >
-                    <option>Choose...</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    for="phone"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Phone number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="07 45 67 89 01"
-                    pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
-                    value={!loading ? phoneNumber : ""}
-                    onChange={(e) => handleChange(e)}
-                    maxLength={14}
-                  />
-                </div>
-                {/* <div>
+              <div>
+                <label
+                  for="first_name"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  First name
+                </label>
+                <input
+                  type="text"
+                  id="first_name"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={!loading && user.firstname}
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="last_name"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Last name
+                </label>
+                <input
+                  type="text"
+                  id="last_name"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={!loading && user.lastname}
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="john.doe@company.com"
+                  value={!loading ? email : ""}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  for="sex"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Sex
+                </label>
+                {/* https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt4_VFq9vjfSb3lkrz48XcaciMD_NA1jsixg&usqp=CAU */}
+                <select
+                  id="sex"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={!loading ? sex : ""}
+                  onChange={(e) => setSex(e.target.value)}
+                >
+                  <option>Choose...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  for="phone"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Phone number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="07 45 67 89 01"
+                  pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
+                  value={!loading ? phoneNumber : ""}
+                  onChange={(e) => handleChange(e)}
+                  maxLength={14}
+                />
+              </div>
+              {/* <div>
                 <label
                   for="password"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -378,302 +356,306 @@ const UserProfile = () => {
                   required
                 />
               </div> */}
-              </div>
-              <h1 className="text-2xl font-bold mb-4 mt-9">
-                Your medical informations
-              </h1>
-              <div class="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
-                  <label
-                    for="doctor_name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Doctor
-                  </label>
-                  <input
-                    type="text"
-                    id="doctor_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Dr. John Doe"
-                    value={!loading ? doctorName : ""}
-                    onChange={(e) => setDoctorName(e.target.value)}
-                  />
+            </div>
+            {user.role.name === "Patient" && (
+              <>
+                <h1 className="text-2xl font-bold mb-4 mt-9">
+                  Your medical informations
+                </h1>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                  <div>
+                    <label
+                      for="doctor_name"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Doctor
+                    </label>
+                    <input
+                      type="text"
+                      id="doctor_name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Dr. John Doe"
+                      value={!loading ? doctorName : ""}
+                      onChange={(e) => setDoctorName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="doctor_email"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Doctor email address
+                    </label>
+                    <input
+                      type="email"
+                      id="doctor_email"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder=""
+                      value={!loading ? doctorEmail : ""}
+                      onChange={(e) => setDoctorEmail(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="doctor_address"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Doctor office address
+                    </label>
+                    <input
+                      type="text"
+                      id="doctor_address"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="3 rue de la paix, 75000 Paris"
+                      value={!loading ? doctorAddress : ""}
+                      onChange={(e) => setDoctorAddress(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="doctor_phone"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Doctor phone number
+                    </label>
+                    <input
+                      type="tel"
+                      id="doctor_phone"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="07 45 67 89 01"
+                      pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
+                      value={!loading ? doctorPhone : ""}
+                      onChange={(e) => handleChangeDoctort(e)}
+                      maxLength={14}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="height"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Height
+                    </label>
+                    <input
+                      type="number"
+                      id="height"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="180 cm"
+                      value={!loading ? height : ""}
+                      onChange={(e) => setHeight(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="weight"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Weight
+                    </label>
+                    <input
+                      type="number"
+                      id="weight"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="80 kg"
+                      value={!loading ? weight : ""}
+                      onChange={(e) => setWeight(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="blood_type"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Blood type
+                    </label>
+                    <input
+                      type="text"
+                      id="blood_type"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="A+"
+                      value={!loading ? bloodType : ""}
+                      onChange={(e) => setBloodType(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="allergies"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Allergies
+                    </label>
+                    <MultiSelectInput
+                      id="allergies"
+                      setSelectedValues={(e) => setAllergies(e)}
+                      selectedValues={!loading ? allergies : []}
+                      onChange={(e) => setAllergies(e)}
+                      placeholder="Select or add your allergies"
+                      options={[
+                        {value: "pollen", label: "Pollen"},
+                        {value: "milk", label: "Milk"},
+                        {value: "eggs", label: "Eggs"},
+                        {value: "peanuts", label: "Peanuts"},
+                        {value: "wheat", label: "Wheat"},
+                        {value: "shellfish", label: "Shellfish"},
+                        {value: "soy", label: "Soy"},
+                        {value: "fish", label: "Fish"},
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="medications"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Medications
+                    </label>
+                    <MultiSelectInput
+                      id="medications"
+                      setSelectedValues={(e) => setMedications(e)}
+                      selectedValues={!loading ? medications : []}
+                      onChange={(e) => setMedications(e)}
+                      placeholder="Select or add your medications"
+                      options={[
+                        {value: "metformin", label: "Metformin"},
+                        {value: "lisinopril", label: "Lisinopril"},
+                        {value: "atorvastatin", label: "Atorvastatin"},
+                        {value: "levothyroxine", label: "Levothyroxine"},
+                        {value: "albuterol", label: "Albuterol"},
+                        {value: "warfarin", label: "Warfarin"},
+                        {value: "insulin-glargine", label: "Insulin glargine"},
+                        {
+                          value: "hydrochlorothiazide",
+                          label: "Hydrochlorothiazide",
+                        },
+                        {value: "montelukast", label: "Montelukast"},
+                        {value: "gabapentin", label: "Gabapentin"},
+                        {value: "omeprazole", label: "Omeprazole"},
+                        {value: "losartan", label: "Losartan"},
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="chronic_diseases"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Chronic diseases
+                    </label>
+                    <MultiSelectInput
+                      id="chronic_diseases"
+                      setSelectedValues={(e) => setChronicDiseases(e)}
+                      selectedValues={!loading ? chronicDiseases : []}
+                      onChange={(e) => setChronicDiseases(e)}
+                      placeholder="Select or add your chronic diseases"
+                      options={[
+                        {value: "diabetes", label: "Diabetes"},
+                        {value: "hypertension", label: "Hypertension"},
+                        {value: "asthma", label: "Asthma"},
+                        {value: "hyperlipidemia", label: "Hyperlipidemia"},
+                        {value: "depression", label: "Depression"},
+                        {value: "anxiety", label: "Anxiety"},
+                        {value: "arthritis", label: "Arthritis"},
+                        {value: "gout", label: "Gout"},
+                        {value: "heart_disease", label: "Heart disease"},
+                        {value: "cancer", label: "Cancer"},
+                        {value: "kidney_disease", label: "Kidney disease"},
+                        {value: "liver_disease", label: "Liver disease"},
+                        {value: "thyroid_disease", label: "Thyroid disease"},
+                        {value: "stroke", label: "Stroke"},
+                        {value: "alzheimer", label: "Alzheimer"},
+                        {value: "parkinson", label: "Parkinson"},
+                        {value: "epilepsy", label: "Epilepsy"},
+                        {
+                          value: "multiple_sclerosis",
+                          label: "Multiple sclerosis",
+                        },
+                        {value: "chronic_pain", label: "Chronic pain"},
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="surgery"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Surgery
+                    </label>
+                    <MultiSelectInput
+                      id="surgery"
+                      setSelectedValues={(e) => setSurgery(e)}
+                      selectedValues={!loading ? surgery : []}
+                      onChange={(e) => setSurgery(e)}
+                      placeholder="Select or add your surgery"
+                      options={[
+                        {value: "appendectomy", label: "Appendectomy"},
+                        {value: "cholecystectomy", label: "Cholecystectomy"},
+                        {value: "hysterectomy", label: "Hysterectomy"},
+                        {value: "tonsillectomy", label: "Tonsillectomy"},
+                        {value: "tubal_ligation", label: "Tubal ligation"},
+                        {value: "mastectomy", label: "Mastectomy"},
+                        {
+                          value: "coronary_artery_bypass",
+                          label: "Coronary artery bypass",
+                        },
+                        {value: "knee_replacement", label: "Knee replacement"},
+                        {value: "hip_replacement", label: "Hip replacement"},
+                        {value: "c-section", label: "C-section"},
+                        {value: "tonsillectomy", label: "Tonsillectomy"},
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="vaccinations"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Vaccinations
+                    </label>
+                    <MultiSelectInput
+                      id="vaccinations"
+                      setSelectedValues={(e) => setVaccinations(e)}
+                      selectedValues={!loading ? vaccinations : []}
+                      onChange={(e) => setVaccinations(e)}
+                      placeholder="Select or add your vaccinations"
+                      options={[
+                        {value: "flu", label: "Flu"},
+                        {value: "pneumonia", label: "Pneumonia"},
+                        {value: "shingles", label: "Shingles"},
+                        {value: "hpv", label: "HPV"},
+                        {value: "tetanus", label: "Tetanus"},
+                        {value: "measles", label: "Measles"},
+                        {value: "mumps", label: "Mumps"},
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="other"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Other
+                    </label>
+                    <input
+                      type="text"
+                      id="other"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Other"
+                      value={!loading ? other : ""}
+                      onChange={(e) => setOther(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label
-                    for="doctor_email"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Doctor email address
-                  </label>
-                  <input
-                    type="email"
-                    id="doctor_email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder=""
-                    value={!loading ? doctorEmail : ""}
-                    onChange={(e) => setDoctorEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="doctor_address"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Doctor office address
-                  </label>
-                  <input
-                    type="text"
-                    id="doctor_address"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="3 rue de la paix, 75000 Paris"
-                    value={!loading ? doctorAddress : ""}
-                    onChange={(e) => setDoctorAddress(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="doctor_phone"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Doctor phone number
-                  </label>
-                  <input
-                    type="tel"
-                    id="doctor_phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="07 45 67 89 01"
-                    pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
-                    value={!loading ? doctorPhone : ""}
-                    onChange={(e) => handleChangeDoctort(e)}
-                    maxLength={14}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="height"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Height
-                  </label>
-                  <input
-                    type="number"
-                    id="height"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="180 cm"
-                    value={!loading ? height : ""}
-                    onChange={(e) => setHeight(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="weight"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Weight
-                  </label>
-                  <input
-                    type="number"
-                    id="weight"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="80 kg"
-                    value={!loading ? weight : ""}
-                    onChange={(e) => setWeight(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="blood_type"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Blood type
-                  </label>
-                  <input
-                    type="text"
-                    id="blood_type"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="A+"
-                    value={!loading ? bloodType : ""}
-                    onChange={(e) => setBloodType(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="allergies"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Allergies
-                  </label>
-                  <MultiSelectInput
-                    id="allergies"
-                    setSelectedValues={(e) => setAllergies(e)}
-                    selectedValues={!loading ? allergies : []}
-                    onChange={(e) => setAllergies(e)}
-                    placeholder="Select or add your allergies"
-                    options={[
-                      {value: "pollen", label: "Pollen"},
-                      {value: "milk", label: "Milk"},
-                      {value: "eggs", label: "Eggs"},
-                      {value: "peanuts", label: "Peanuts"},
-                      {value: "wheat", label: "Wheat"},
-                      {value: "shellfish", label: "Shellfish"},
-                      {value: "soy", label: "Soy"},
-                      {value: "fish", label: "Fish"},
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="medications"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Medications
-                  </label>
-                  <MultiSelectInput
-                    id="medications"
-                    setSelectedValues={(e) => setMedications(e)}
-                    selectedValues={!loading ? medications : []}
-                    onChange={(e) => setMedications(e)}
-                    placeholder="Select or add your medications"
-                    options={[
-                      {value: "metformin", label: "Metformin"},
-                      {value: "lisinopril", label: "Lisinopril"},
-                      {value: "atorvastatin", label: "Atorvastatin"},
-                      {value: "levothyroxine", label: "Levothyroxine"},
-                      {value: "albuterol", label: "Albuterol"},
-                      {value: "warfarin", label: "Warfarin"},
-                      {value: "insulin-glargine", label: "Insulin glargine"},
-                      {
-                        value: "hydrochlorothiazide",
-                        label: "Hydrochlorothiazide",
-                      },
-                      {value: "montelukast", label: "Montelukast"},
-                      {value: "gabapentin", label: "Gabapentin"},
-                      {value: "omeprazole", label: "Omeprazole"},
-                      {value: "losartan", label: "Losartan"},
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="chronic_diseases"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Chronic diseases
-                  </label>
-                  <MultiSelectInput
-                    id="chronic_diseases"
-                    setSelectedValues={(e) => setChronicDiseases(e)}
-                    selectedValues={!loading ? chronicDiseases : []}
-                    onChange={(e) => setChronicDiseases(e)}
-                    placeholder="Select or add your chronic diseases"
-                    options={[
-                      {value: "diabetes", label: "Diabetes"},
-                      {value: "hypertension", label: "Hypertension"},
-                      {value: "asthma", label: "Asthma"},
-                      {value: "hyperlipidemia", label: "Hyperlipidemia"},
-                      {value: "depression", label: "Depression"},
-                      {value: "anxiety", label: "Anxiety"},
-                      {value: "arthritis", label: "Arthritis"},
-                      {value: "gout", label: "Gout"},
-                      {value: "heart_disease", label: "Heart disease"},
-                      {value: "cancer", label: "Cancer"},
-                      {value: "kidney_disease", label: "Kidney disease"},
-                      {value: "liver_disease", label: "Liver disease"},
-                      {value: "thyroid_disease", label: "Thyroid disease"},
-                      {value: "stroke", label: "Stroke"},
-                      {value: "alzheimer", label: "Alzheimer"},
-                      {value: "parkinson", label: "Parkinson"},
-                      {value: "epilepsy", label: "Epilepsy"},
-                      {
-                        value: "multiple_sclerosis",
-                        label: "Multiple sclerosis",
-                      },
-                      {value: "chronic_pain", label: "Chronic pain"},
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="surgery"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Surgery
-                  </label>
-                  <MultiSelectInput
-                    id="surgery"
-                    setSelectedValues={(e) => setSurgery(e)}
-                    selectedValues={!loading ? surgery : []}
-                    onChange={(e) => setSurgery(e)}
-                    placeholder="Select or add your surgery"
-                    options={[
-                      {value: "appendectomy", label: "Appendectomy"},
-                      {value: "cholecystectomy", label: "Cholecystectomy"},
-                      {value: "hysterectomy", label: "Hysterectomy"},
-                      {value: "tonsillectomy", label: "Tonsillectomy"},
-                      {value: "tubal_ligation", label: "Tubal ligation"},
-                      {value: "mastectomy", label: "Mastectomy"},
-                      {
-                        value: "coronary_artery_bypass",
-                        label: "Coronary artery bypass",
-                      },
-                      {value: "knee_replacement", label: "Knee replacement"},
-                      {value: "hip_replacement", label: "Hip replacement"},
-                      {value: "c-section", label: "C-section"},
-                      {value: "tonsillectomy", label: "Tonsillectomy"},
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="vaccinations"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Vaccinations
-                  </label>
-                  <MultiSelectInput
-                    id="vaccinations"
-                    setSelectedValues={(e) => setVaccinations(e)}
-                    selectedValues={!loading ? vaccinations : []}
-                    onChange={(e) => setVaccinations(e)}
-                    placeholder="Select or add your vaccinations"
-                    options={[
-                      {value: "flu", label: "Flu"},
-                      {value: "pneumonia", label: "Pneumonia"},
-                      {value: "shingles", label: "Shingles"},
-                      {value: "hpv", label: "HPV"},
-                      {value: "tetanus", label: "Tetanus"},
-                      {value: "measles", label: "Measles"},
-                      {value: "mumps", label: "Mumps"},
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label
-                    for="other"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Other
-                  </label>
-                  <input
-                    type="text"
-                    id="other"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Other"
-                    value={!loading ? other : ""}
-                    onChange={(e) => setOther(e.target.value)}
-                  />
-                </div>
-              </div>
+              </>
+            )}
 
-              <button
-                type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={(e) => handleModify(e)}
-              >
-                Modify profile
-              </button>
-            </form>
+            <button
+              type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-44 sm:w-44 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={(e) => handleModify(e)}
+            >
+              Modify profile
+            </button>
+            {/* </form> */}
           </div>
         </div>
       </div>
