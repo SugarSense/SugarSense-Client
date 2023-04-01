@@ -1,10 +1,13 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import "../index.css";
 import "../../public/fonts.css";
 import theme from "../theme";
 import NavbarHome from "../components/navbarHome";
 
 function Home() {
+
+
   return (
     <div
       className="flex flex-col items-center font-worksans h-screen text-white"
@@ -13,7 +16,28 @@ function Home() {
       }}
     >
       <div className="flex justify-between items-center w-full py-4">
-        <NavbarHome />
+        <div className="flex items-center">
+          <img
+            src="https://cdn.discordapp.com/attachments/1089824944025767996/1090186808614203453/image.png"
+            alt="SugarSense"
+            className="h-12 w-12 mr-2"
+          />
+          <h1 className="text-2xl font-bold">SugarSense</h1>
+        </div>
+        <div className="flex items-center">
+          <a href="#" className="text-xl mr-10">
+            FAQ
+          </a>
+          <a href="#" className="text-xl mr-10">
+            Contact
+          </a>
+          <a href="/login" className="text-xl mr-10">
+            Log in
+          </a>
+          <a href="/register" className="text-xl mr-10">
+            Register
+          </a>
+        </div>
       </div>
       <div className="flex h-screen">
         <div className="m-auto flex items-center">
