@@ -34,7 +34,7 @@ function Login() {
           });
 
           console.log(res.data);
-          window.location.href = "/follow-up";
+          window.location.href = "/dashboard";
         });
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
@@ -52,41 +52,41 @@ function Login() {
   useEnterKeyDown(handleKeyPress);
 
   return (
-    <div class="container2">
-      <div class="left">
-        <div class="header">
-          <h2 class="animation a1">Welcome Back</h2>
-          <h4 class="animation a2">
+    <div className="container2">
+      <div className="left">
+        <div className="header">
+          <h2 className="animation a1">Welcome Back</h2>
+          <h4 className="animation a2">
             Log in to your account using email and password
           </h4>
         </div>
-        <div class="form">
+        <div className="form">
           <input
             type="email"
-            class="form-field animation a3"
+            className="form-field animation a3"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
-            class="form-field animation a4"
+            className="form-field animation a4"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p class="animation a5">
+          <p className="animation a5">
             <a href="#">Forgot Password</a>
           </p>
-          <p class="animation a5">
+          <p className="animation a5">
             <a href="register">I don't have an account</a>
           </p>
-          <button class="animation a5" onClick={(e) => handleSubmit(e)}>
+          <button className="animation a5" onClick={(e) => handleSubmit(e)}>
             LOGIN
           </button>
         </div>
       </div>
-      <div class="right"></div>
+      <div className="right"></div>
     </div>
   );
 }
