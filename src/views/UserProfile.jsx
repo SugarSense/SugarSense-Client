@@ -185,7 +185,7 @@ const UserProfile = () => {
           <div className="flex flex-col ml-4">
             <h1 className="text-2xl font-bold mb-6">Your informations</h1>
             {user.role.name === "Doctor" &&
-              user.role.confirmedAccount === true &&
+              user.verified === true &&
               user.role.confirmedDoctor === "false" && (
                 <button
                   type="button"
