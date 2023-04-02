@@ -31,9 +31,14 @@ function TestMail() {
       to,
       subject,
       message,
+      user_id: user._id,
     };
     try {
-      const res = await axios.post(`/${user._id}/send-email`, data);
+      console.log(data);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_PATH}/email/${user._id}/send-email`,
+        data
+      );
       console.log(res);
     } catch (err) {
       console.log(err);
