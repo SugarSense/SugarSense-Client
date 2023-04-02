@@ -185,8 +185,8 @@ const UserProfile = () => {
           <div className="flex flex-col ml-4">
             <h1 className="text-2xl font-bold mb-6">Your informations</h1>
             {user.role.name === "Doctor" &&
-              user.role.accountConfirmed === true &&
-              user.role.confirmedDoctor === false && (
+              user.role.confirmedAccount === true &&
+              user.role.confirmedDoctor === "false" && (
                 <button
                   type="button"
                   class="text-white mb-4 w-44 sm:w-44 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"

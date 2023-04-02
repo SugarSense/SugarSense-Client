@@ -25,9 +25,15 @@ const AuthContextProvider = (props) => {
               setUser(res.data.user);
               setLoading(false);
               // console.log(res.data.user);
+            })
+            .catch((err) => {
+              console.log(err);
+              cookies.remove("auth_token");
             });
         } catch (err) {
           console.log(err);
+          window.location.href = "/";
+          // cookies.remove("auth_token");
         }
       }
       setLoading(false);
