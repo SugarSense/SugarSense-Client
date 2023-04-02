@@ -221,9 +221,9 @@ function DoctorConfirmationDialog({id, setOpenDialog, open}) {
                     </h1>
                     <RadioButtons
                       options={[
-                        {value: "male", label: "Male"},
-                        {value: "female", label: "Female"},
-                        {value: "other", label: "Other"},
+                        {value: "Male", label: "Male"},
+                        {value: "Female", label: "Female"},
+                        {value: "Other", label: "Other"},
                       ]}
                       onChange={(e) => setSex(e.target.value)}
                       value={sex}
