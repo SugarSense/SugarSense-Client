@@ -3,6 +3,7 @@ import axios from "axios";
 import "../index.css";
 import { useAuth } from "../hooks/useAuth";
 import NavBar from "../components/navBar";
+import { MdOutlineEditNotifications } from "react-icons/md";
 
 function CustomAlert() {
   const { user } = useAuth();
@@ -96,7 +97,19 @@ function CustomAlert() {
       <NavBar />
       <div className="px-4 pt-24 ml-64 font-worksans">
         <div className="px-4 py-6 border-2 border-gray-200 rounded-lg dark:border-gray-700">
-          <h1 className="text-3xl font-bold">Custom Alert</h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold flex items-center">
+              Custom Alert
+              <MdOutlineEditNotifications
+                size={30}
+                color="#000"
+                className="ml-2"
+              />
+            </h1>
+          </div>
+          <span className="text-gray-500 mb-7">
+            Set the Glucose level limit and received per mail your alert
+          </span>
           <div className="mt-4">
             <div>
               <label htmlFor="block font-medium text-gray-700">
@@ -139,4 +152,5 @@ function CustomAlert() {
     </>
   );
 }
+
 export default CustomAlert;
