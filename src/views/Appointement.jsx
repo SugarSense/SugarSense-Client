@@ -11,7 +11,7 @@ import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import { differenceInCalendarDays, format } from 'date-fns';
 import { useAuth } from "../hooks/useAuth";
-import {enqueueSnackbar, closeSnackbar} from "notistack";
+import { enqueueSnackbar, closeSnackbar } from "notistack";
 
 
 function Appointement() {
@@ -112,28 +112,34 @@ function Appointement() {
 
 
     const createAppointement = () => {
-        const formatedDay = format(selectedDay, 'yyyy-MM-dd');
-        const formatedStart = startingTime.format('HH:mm');
-        const formatedEnd = endingTime.format('HH:mm');
+ 
+        if (selectedDay === undefined || startingTime === undefined || endingTime === undefined) {
+            enqueueSnackbar('Please select a day and a time', { variant: 'error' });
+            return;
+        } else {
+            const formatedDay = format(selectedDay, 'yyyy-MM-dd');
+            const formatedStart = startingTime.format('HH:mm');
+            const formatedEnd = endingTime.format('HH:mm');
 
-        axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
-            doctorId: selectedDoctor._id,
-            patientId: user._id,
-            date: [
-                {
-                    date: formatedDay,
-                    startingTime: formatedStart,
-                    endingTime: formatedEnd
-                }
-            ]
-        }).then((res) => {
-            enqueueSnackbar("Appointement created successfully", {
-                variant: "success",
-              });
-            hideAppointementModal();
-        }).catch((err) => {
-            console.log(err);
-        })
+            axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
+                doctorId: selectedDoctor._id,
+                patientId: user._id,
+                date: [
+                    {
+                        date: formatedDay,
+                        startingTime: formatedStart,
+                        endingTime: formatedEnd
+                    }
+                ]
+            }).then((res) => {
+                enqueueSnackbar("Appointement created successfully", {
+                    variant: "success",
+                });
+                hideAppointementModal();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
 
     }
 
