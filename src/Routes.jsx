@@ -4,7 +4,7 @@ import Home from "./views/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import Connexions from "./views/Connexions";
+import Connexion from "./views/Connexion";
 import Faq from "./views/Faq";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
@@ -31,7 +31,7 @@ function RoutesProvider() {
             <Route path="/follow-up" element={<FollowUp />} />
             <Route path="/appointement" element={<Appointement />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/connexions" element={<Connexions />} />
+            <Route path="/connexion" element={<Connexion />} />
             <Route path="/custom-alert" element={<CustomAlert />} />
             <Route path="/testmail" element={<TestMail />} />
           </Route>

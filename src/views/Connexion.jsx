@@ -3,7 +3,7 @@ import SearchBar from "../components/searchbar";
 import NavBar from "../components/navbar";
 import "../index.css";
 
-function Connexions() {
+function Connexion() {
   return (
     <div className="App">
       <SearchBar />
@@ -12,4 +12,4 @@ function Connexions() {
   );
 }
 
-export default Connexions;
+export default Connexion;
