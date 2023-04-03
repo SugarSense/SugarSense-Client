@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import "../index.css";
 import "../../public/fonts.css";
 import theme from "../theme";
+import Cookies from "universal-cookie";
 
 function Home() {
-
+  const cookies = new Cookies();
 
   return (
     <div
@@ -30,12 +31,22 @@ function Home() {
           <a href="#" className="text-xl mr-10">
             Contact
           </a>
-          <a href="/login" className="text-xl mr-10">
-            Log in
-          </a>
-          <a href="/register" className="text-xl mr-10">
-            Register
-          </a>
+          {cookies.get("auth_token") ? (
+            <>
+              <a href="/follow-up" className="text-xl mr-10">
+                Dashboard
+              </a>
+            </>
+          ) : (
+            <>
+              <a href="/login" className="text-xl mr-10">
+                Log in
+              </a>
+              <a href="/register" className="text-xl mr-10">
+                Register
+              </a>
+            </>
+          )}
         </div>
       </div>
       <div className="flex h-screen">

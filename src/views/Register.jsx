@@ -28,10 +28,10 @@ function Register() {
         password,
         firstname,
         lastname,
+        verified: false,
         role: {
           name: role,
           confirmedDoctor: false,
-          accountConfirmed: false,
         },
       };
       if (role === "Patient") {
@@ -44,7 +44,10 @@ function Register() {
         })
         .then((res) => {
           cookies.set("auth_token", res.data.user.token, {path: "/"});
-          enqueueSnackbar("User registered successfully", {
+          enqueueSnackbar(res.data.message[0], {
+            variant: "success",
+          });
+          enqueueSnackbar(res.data.message[1], {
             variant: "success",
           });
           window.location.href = "/follow-up";

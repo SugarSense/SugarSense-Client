@@ -8,17 +8,21 @@ import FollowUp from "./views/FollowUp";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
 import UserProfile from "./views/UserProfile";
+import Verify from "./views/Verify";
+import {Toaster} from "react-hot-toast";
 
 function RoutesProvider() {
   const cookies = new Cookies();
   const loggedIn = cookies.get("auth_token");
   return (
     <AuthContextProvider>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify/:token" element={<Verify />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />

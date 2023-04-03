@@ -12,6 +12,7 @@ const SideBar = (props) => {
   const handleLogout = async () => {
     try {
       cookies.remove("auth_token", {path: "/"});
+      cookies.remove("verify_email_sent", {path: "/"});
       window.location.href = "/login";
     } catch (error) {
       console.log(error);

@@ -13,6 +13,7 @@ const AuthContextProvider = (props) => {
   useEffect(() => {
     (async () => {
       const token = cookies.get("auth_token");
+
       if (token) {
         try {
           await axios
@@ -24,6 +25,9 @@ const AuthContextProvider = (props) => {
             .then((res) => {
               setUser(res.data.user);
               setLoading(false);
+              if (res.data.user.verified === true) {
+                cookies.remove("verify_email_sent");
+              }
               // console.log(res.data.user);
             })
             .catch((err) => {
