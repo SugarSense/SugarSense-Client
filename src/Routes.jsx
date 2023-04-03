@@ -12,6 +12,7 @@ import FollowUp from "./views/FollowUp";
 import Dashboard from "./views/Dashboard";
 import Appointement from "./views/Appointement";
 import TestMail from "./views/TestMail";
+import CustomAlert from "./views/CustomAlert";
 
 function RoutesProvider() {
   const cookies = new Cookies();
