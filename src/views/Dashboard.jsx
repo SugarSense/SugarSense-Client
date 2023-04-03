@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useAuth } from "../hooks/useAuth";
 
 import React, { useState } from 'react';
+import { enqueueSnackbar, closeSnackbar } from "notistack";
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 
 import { format } from 'date-fns';
 
@@ -21,6 +23,42 @@ function Dashboard() {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    // enqueueSnackbar('Your post has been archived', {
+    //     variant: 'success',
+    // })
+    const cancelButton = (id) => {
+        //Create a notification with the choice to delete the appointement or to cancel the action 
+        enqueueSnackbar('Are you sure you want to cancel this appointment?', {
+            variant: 'info',
+            action: (key) => (
+                <>
+                    <button
+                        onClick={() => cancelAppointement(id)}
+                        style={{
+                            color: "white",
+                            backgroundColor: "#358c38",
+                            borderRadius: "15px",
+                            padding: "5px",
+                            marginRight: "10px",
+                        }}>
+                        <AiOutlineCheck />
+                    </button>
+                    <button
+                        onClick={() => closeSnackbar(key)}
+                        style={{
+                            color: "white",
+                            backgroundColor: "#f44336",
+                            borderRadius: "15px",
+                            padding: "5px",
+                        }}
+                    >
+                        <AiOutlineClose />
+                    </button>
+                </>
+            ),
+        });
     }
 
     const getDoctors = async () => {
@@ -72,7 +110,7 @@ function Dashboard() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <button onClick={
-                                        () => cancelAppointement(appointment._id)
+                                        () => cancelButton(appointment._id)
                                     } className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-500">
                                         Cancel
                                     </button>
