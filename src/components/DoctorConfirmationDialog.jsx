@@ -65,31 +65,6 @@ function DoctorConfirmationDialog({id, setOpenDialog, open}) {
       });
   };
 
-  // const handleSubmitFiles = (e) => {
-  //   e.preventDefault();
-  //   const token = cookie.get("auth_token");
-
-  //   const formData = new FormData();
-  //   files.forEach((file) => {
-  //     formData.append("files", file);
-  //   });
-
-  //   axios
-  //     .post(`${import.meta.env.VITE_API_PATH}/upload`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setFiles([]);
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-
   const handleFileUpload = (event) => {
     // if file is not equal to pdf or image then return
     if (
