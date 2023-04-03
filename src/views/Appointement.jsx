@@ -18,8 +18,8 @@ function Appointement() {
     const [doctors, setDoctors] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState({});
-    const [startingTime, setStartingTime] = useState(moment({ hour: 8, minute: 30 }));
-    const [endingTime, setEndingTime] = useState(moment({ hour: 9 }));
+    const [startingTime, setStartingTime] = useState();
+    const [endingTime, setEndingTime] = useState();
     const [selectedDay, setSelectedDay] = useState();
     const [appointement, setAppointement] = useState([]);
     const [disabledMinutes, setDisabledMinutes] = useState([55]);
