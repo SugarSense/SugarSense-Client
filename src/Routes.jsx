@@ -10,6 +10,7 @@ import AuthContextProvider from "./hooks/useAuth";
 import UserProfile from "./views/UserProfile";
 import Verify from "./views/Verify";
 import {Toaster} from "react-hot-toast";
+import DexcomStats from "./views/DexcomStats";
 
 function RoutesProvider() {
   const cookies = new Cookies();
@@ -27,6 +28,7 @@ function RoutesProvider() {
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
             <Route path="/myProfile" element={<UserProfile />} />
+            <Route path="/dexcomStats" element={<DexcomStats />} />
           </Route>
         </Routes>
       </BrowserRouter>

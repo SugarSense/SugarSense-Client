@@ -7,6 +7,7 @@ import MultiSelectInput from "../components/MultiSelectInput";
 import {Toaster, toast} from "react-hot-toast";
 import {enqueueSnackbar, closeSnackbar} from "notistack";
 import DoctorConfirmationDialog from "../components/DoctorConfirmationDialog";
+import {useParams} from "react-router-dom";
 
 const UserProfile = () => {
   const {user} = useAuth();
@@ -161,6 +162,31 @@ const UserProfile = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const code = urlParams.get("code");
+      const token = cookies.get("auth_token");
+
+      if (code) {
+        await axios
+          .get(`${import.meta.env.VITE_API_PATH}/dexcom/auth`, {
+            headers: {
+              Authorization: `Bearer ${code}`,
+              UserAuthorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    })();
+  }, []);
+
   return (
     <>
       <Toaster />
@@ -184,20 +210,37 @@ const UserProfile = () => {
           />
           <div className="flex flex-col ml-4">
             <h1 className="text-2xl font-bold mb-6">Your informations</h1>
-            {user.role.name === "Doctor" &&
-              user.role.confirmedDoctor === "false" && (
+            <div className="flex">
+              {user.role.name === "Doctor" &&
+                user.role.confirmedDoctor === "false" && (
+                  <button
+                    type="button"
+                    class="text-white mb-4 w-44 sm:w-44 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                    onClick={() => {
+                      user.verified === true
+                        ? setOpenDialog(true)
+                        : toast.error(
+                            "You need to verify your account first !"
+                          );
+                    }}
+                  >
+                    Valider votre role
+                  </button>
+                )}
+              {!user.dexcomToken && (
                 <button
                   type="button"
-                  class="text-white mb-4 w-44 sm:w-44 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                  onClick={() => {
-                    user.verified === true
-                      ? setOpenDialog(true)
-                      : toast.error("You need to verify your account first !");
-                  }}
+                  class="text-white mb-4 w-44 sm:w-44 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                  onClick={() =>
+                    (window.location.href = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${
+                      import.meta.env.VITE_DEXCOM_CLIENT_ID
+                    }&redirect_uri=http://localhost:5173/myProfile&response_type=code&scope=offline_access&state=offline_access`)
+                  }
                 >
-                  Valider votre role
+                  Connect to Dexcom
                 </button>
               )}
+            </div>
             <label className="relative inline-flex items-center cursor-pointer mb-4">
               <span className="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Url
