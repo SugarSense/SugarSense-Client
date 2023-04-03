@@ -6,8 +6,8 @@ import "../index.css";
 function Connexions() {
   return (
     <div className="App">
-      <SideBar />
       <SearchBar />
+      <SideBar />
     </div>
   );
 }

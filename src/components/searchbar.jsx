@@ -44,7 +44,6 @@ const items = [
     description:
       "The Glucofix Tech2K MENARINI meter that guarantees reliable results for both doctors and diabetic patients.",
     bluetooth: false,
-    bluetooth: true,
     batteryPercentage: 95,
     insulinDoses: 9,
     lastSync: "2021-05-01T12:00:00.000Z",
@@ -82,7 +81,7 @@ function SearchBar({}) {
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
-    <div className="search-bar p-4 sm:ml-64 custom-padding-top font-worksans w-1/3">
+    <div className="search-bar p-4 sm:ml-64 custom-padding-top font-worksans">
       {!selectedItem ? (
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -112,54 +111,67 @@ function SearchBar({}) {
       ) : null}
       {selectedItem ? (
         <div className="flex flex-col items-center py-4">
-          <img src={selectedItem.img} alt="meter" className="w-1/2" />
-          <p className="text-xl py-4">{selectedItem.name}</p>
-          {selectedItem.bluetooth ? (
-            <>
-              <div className="flex items-center">
-                <BiBluetooth className="text-blue-500" />
-                <p className="text-sm">Bluetooth technology</p>
+          <div className="flex">
+            <div className="glucosemeter flex flex-col items-center w-1/2">
+              <img src={selectedItem.img} alt="meter" className="w-1/2" />
+              <p className="text-justify text-xl py-4 ">{selectedItem.name}</p>
+              {selectedItem.bluetooth ? (
+                <>
+                  <div className="flex items-center">
+                    <BiBluetooth className="text-blue-500" />
+                    <p className="text-sm">Bluetooth technology</p>
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm">No Bluetooth</p>
+              )}
+              <p className="text-sm py-4">{selectedItem.description}</p>
+            </div>
+            <div className="information w-1/2 mt-8">
+              <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
+                <p className="text-lg font-bold">Battery Percentage</p>
+                <p className="text-lg font-bold">
+                  {selectedItem.batteryPercentage
+                    ? selectedItem.batteryPercentage
+                    : "N/A"}
+                  %
+                </p>
               </div>
-            </>
-          ) : (
-            <p className="text-sm">No Bluetooth</p>
-          )}
-          <p className="text-sm py-4">{selectedItem.description}</p>
-          <div>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-              onClick={() => handleButtonClick()}
-            >
-              Delete
-            </button>
-          </div>
-          <div className="w-full mt-8">
-            <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
-              <p className="text-lg font-bold">Battery Percentage</p>
-              <p className="text-lg font-bold">
-                {selectedItem.batteryPercentage
-                  ? selectedItem.batteryPercentage
-                  : "N/A"}
-                %
-              </p>
-            </div>
-            <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
-              <p className="text-lg font-bold">Insulin Doses</p>
-              <p className="text-lg font-bold">
-                {selectedItem.insulinDoses ? selectedItem.insulinDoses : "N/A"}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-lg font-bold">Other Parameters</p>
-              <p className="text-lg font-bold">
-                {selectedItem.params ? selectedItem.params : "N/A"}
-              </p>
-            </div>
-            <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
-              <p className="text-lg font-bold">Last Sync</p>
-              <p className="text-lg font-bold">
-                {selectedItem.lastSync ? selectedItem.lastSync : "N/A"}
-              </p>
+              <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
+                <p className="text-lg font-bold">Insulin Doses</p>
+                <p className="text-lg font-bold">
+                  {selectedItem.insulinDoses
+                    ? selectedItem.insulinDoses
+                    : "N/A"}
+                </p>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-lg font-bold">Other Parameters</p>
+                <p className="text-lg font-bold">
+                  {selectedItem.params ? selectedItem.params : "N/A"}
+                </p>
+              </div>
+              <div className="flex justify-between items-center border-b-2 border-gray-200 pb-2 mb-4">
+                <p className="text-lg font-bold">Last Sync</p>
+                <p className="text-lg font-bold">
+                  {selectedItem.lastSync ? selectedItem.lastSync : "N/A"}
+                </p>
+              </div>
+              <div className="flex justify-evenly pb-2 mb-4">
+                <div>
+                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
+                    Connect
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+                    onClick={() => handleButtonClick()}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
