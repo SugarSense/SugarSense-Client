@@ -131,6 +131,7 @@ function Dashboard() {
             ) : (
                 <div className='p-4 ml-64 custom-padding-top'>
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">My Appointments</h3>
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -151,7 +152,11 @@ function Dashboard() {
                                     </th>
                                 </tr>
                             </thead>
-                            <AppointmentsList appointments={appointement} doctors={doctors} />
+                            {appointement.length === 0 ? (
+                                <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Appointement</h3>
+                            ) : (
+                                <AppointmentsList appointments={appointement} doctors={doctors} />
+                            )}
                         </table>
                     </div>
                 </div>
