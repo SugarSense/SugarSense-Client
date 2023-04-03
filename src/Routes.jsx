@@ -11,6 +11,7 @@ import AuthContextProvider from "./hooks/useAuth";
 import FollowUp from "./views/FollowUp";
 import Dashboard from "./views/Dashboard";
 import Appointement from "./views/Appointement";
+import TestMail from "./views/TestMail";
 
 function RoutesProvider() {
   const cookies = new Cookies();
@@ -30,6 +31,8 @@ function RoutesProvider() {
             <Route path="/appointement" element={<Appointement />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/connexions" element={<Connexions />} />
+            <Route path="/custom-alert" element={<CustomAlert />} />
+            <Route path="/testmail" element={<TestMail />} />
           </Route>
         </Routes>
       </BrowserRouter>
