@@ -1,41 +1,66 @@
-import React, {useEffect, useState} from "react";
-import {useAuth} from "../hooks/useAuth";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
-import {Line} from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import moment from "moment";
 
+import { addDays, format } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+
 const DexcomStats = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState({});
 
   useEffect(() => {
-    (async () => {
-      if (!user.dexcomToken) return;
+    handleDayClick();
+  }, [user.dexcomToken]);
 
-      await axios
-        .get(`${import.meta.env.VITE_API_PATH}/dexcom/EGVS`, {
+  const handleDayClick = async (day) => {
+    setRange(day);
+    console.log(day);
+
+    if (!user.dexcomToken) return;
+    await axios
+      .post(`${import.meta.env.VITE_API_PATH}/dexcom/EGVS`,
+        {
+          date: day ? moment(day).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD"),
+        },
+        {
           headers: {
             Authorization: `Bearer ${user.dexcomToken}`,
           },
         })
-        .then((res) => {
-          setData(res.data.records);
-          console.log(res.data.records);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })();
-  }, [user.dexcomToken]);
+      .then((res) => {
+        setData(res.data.records);
+        console.log(res.data.records);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const isFutureDate = (day) => {
+    return day > new Date();
+  }
 
   return (
     <div className="p-4 ml-64 custom-padding-top">
       <h1>Dexcom Stats</h1>
       <p>Here you can see your Dexcom stats</p>
       <p>Here is your data: </p>
-      {!loading && (
+      <DayPicker
+        mode="single"
+        selected={range}
+        onSelect={
+          (day) => handleDayClick(day)
+        }
+        disabled={isFutureDate}
+      />
+      {!loading && range && (
         <Line
           data={{
             labels: data
