@@ -34,6 +34,16 @@ function Dashboard() {
         }
     }
 
+    const getDoctors = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_PATH}/auth/confirmedDoctor`);
+            setDoctors(res.data.user);
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     // enqueueSnackbar('Your post has been archived', {
     //     variant: 'success',
     // })
@@ -70,15 +80,7 @@ function Dashboard() {
         });
     }
 
-    const getDoctors = async () => {
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_API_PATH}/auth/confirmedDoctor`);
-            setDoctors(res.data.user);
-            setLoading(false);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+
 
 
 
@@ -287,10 +289,6 @@ function Dashboard() {
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="col-span-1">
-                                        <h2 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Doctor list</h2>
-                                        <DoctorList />
-                                    </div>
 
                                 </>
                             ) : (
@@ -299,7 +297,8 @@ function Dashboard() {
                                         <h2 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Today glucose evolution</h2>
                                         <div className="flex flex-col items-center justify-center w-full h-full">
                                             <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">You don't have any glucose data yet</p>
-                                            <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Please link your Dexcom account</p>
+                                            <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Wait a bit for the data to fetch</p>
+                                            <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Or if not already connect to dexcom</p>
                                         </div>
                                     </div>
                                     <div className="col-span-1">
@@ -309,12 +308,12 @@ function Dashboard() {
                                             <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Please link your Dexcom account</p>
                                         </div>
                                     </div>
-                                    <div className="col-span-1">
-                                        <h2 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Doctor list</h2>
-                                        <DoctorList />
-                                    </div>
                                 </>
                             )}
+                            <div className="col-span-1">
+                                <h2 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Doctor list</h2>
+                                <DoctorList />
+                            </div>
                         </div>
                     </div>
                 </div>
