@@ -88,6 +88,9 @@ function Dashboard() {
         axios.delete(`${import.meta.env.VITE_API_PATH}/appointement/${id}`)
             .then(response => {
                 getUserAppointments();
+                enqueueSnackbar('Your appointement has been canceled', {
+                    variant: 'success',
+                })
             })
             .catch(error => {
                 console.log(error);
