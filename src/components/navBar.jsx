@@ -1,8 +1,8 @@
-import { BiLogOut } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
-import { BsGraphUp, BsShareFill } from "react-icons/bs";
-import { RxDashboard } from "react-icons/rx";
-import { FiCalendar } from "react-icons/fi";
+import {BiLogOut} from "react-icons/bi";
+import {CgProfile} from "react-icons/cg";
+import {BsGraphUp, BsShareFill} from "react-icons/bs";
+import {RxDashboard} from "react-icons/rx";
+import {FiCalendar} from "react-icons/fi";
 import {
   MdOutlineEditNotifications,
   MdOutlineCastConnected,
@@ -10,10 +10,11 @@ import {
 import React from "react";
 import Cookies from "universal-cookie";
 import {Navigate} from "react-router-dom";
-
+import {useAuth} from "../hooks/useAuth";
 
 const SideBar = (props) => {
   const cookies = new Cookies();
+  const {user} = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -65,11 +66,17 @@ const SideBar = (props) => {
             </li>
             <li>
               <a
-                href="/appointement"
+                href={
+                  user.role === "Patient"
+                    ? "/appointement"
+                    : "/doctor-appointement"
+                }
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <FiCalendar size={20} color="#000" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Appointement</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  Appointement
+                </span>
               </a>
             </li>
             <li
@@ -82,7 +89,6 @@ const SideBar = (props) => {
               </p>
             </li>
             <li onClick={() => handleLogout()}>
-
               <p className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <BiLogOut size={25} color="#000" />
                 Logout
@@ -93,7 +99,6 @@ const SideBar = (props) => {
       </aside>
 
       <div>{props.children}</div>
-
     </>
   );
 };
