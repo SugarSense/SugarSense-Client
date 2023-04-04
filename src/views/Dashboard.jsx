@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import React, { useState } from 'react';
 import { enqueueSnackbar, closeSnackbar } from "notistack";
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
-
+import moment from 'moment';
 import { format } from 'date-fns';
 
 function Dashboard() {
@@ -18,7 +18,7 @@ function Dashboard() {
     const getUserAppointments = async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_PATH}/appointement/user/${user._id}`)
-            // console.log(response.data.result);
+            console.log(res.data.result);
             setAppointement(res.data.result);
         } catch (err) {
             console.log(err);
@@ -103,10 +103,10 @@ function Dashboard() {
                                     {doctor.firstname} {doctor.lastname}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {format(new Date(appointment.date[0].date), 'dd/MM/yyyy')}
+                                    {moment(appointment.startingTime).format('DD/MM/YYYY')}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {appointment.date[0].startingTime} - {appointment.date[0].endingTime}
+                                    {moment(appointment.startingTime).format('HH:mm')} - {moment(appointment.endingTime).format('HH:mm')}
                                 </td>
                                 <td className="px-6 py-4">
                                     <button onClick={
