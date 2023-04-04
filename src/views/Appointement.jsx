@@ -163,6 +163,8 @@ function Appointement() {
         <><NavBar />
             <div className='p-4 ml-64 custom-padding-top'>
                 <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+                    <h1 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Appointements</h1>
+                    <p className='text-sm text-gray-500 dark:text-gray-400'>Here you can create appointement with the doctor of your choice</p>
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
