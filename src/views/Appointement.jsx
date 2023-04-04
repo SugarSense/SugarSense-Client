@@ -11,19 +11,31 @@ import TimePicker from 'rc-time-picker';
 import moment from 'moment';
 import { differenceInCalendarDays, format } from 'date-fns';
 import { useAuth } from "../hooks/useAuth";
+import { enqueueSnackbar, closeSnackbar } from "notistack";
 
 
 function Appointement() {
     const [doctors, setDoctors] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState({});
-    const [startingTime, setStartingTime] = useState(moment({ hour: 8, minute: 30 }));
-    const [endingTime, setEndingTime] = useState(moment({ hour: 9 }));
+    const [startingTime, setStartingTime] = useState();
+    const [endingTime, setEndingTime] = useState();
     const [selectedDay, setSelectedDay] = useState();
+    const [appointement, setAppointement] = useState([]);
+    const [disabledMinutes, setDisabledMinutes] = useState([55]);
     const { user } = useAuth();
 
     function disabledHours() {
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
+        return [0, 1, 2, 3, 4, 5, 6, 7, 22, 23];
+    }
+
+    const getUserAppointments = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_PATH}/appointement/user/${user._id}`)
+            setAppointement(res.data.result);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
 
@@ -35,7 +47,7 @@ function Appointement() {
     const getDoctors = async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_PATH}/auth/confirmedDoctor`);
-            console.log(res.data.user);
+            // console.log(res.data.user);
             setDoctors(res.data.user);
         } catch (err) {
             console.log(err);
@@ -55,35 +67,85 @@ function Appointement() {
     const changeSeletecTime = (value) => {
         // console.log(value);
         setStartingTime(value);
-        setEndingTime(moment(value).add(30, 'minutes'));
+        setEndingTime(moment(value).add(15, 'minutes'));
+        disableMinuteByHourAndDay(selectedDay, value);
     }
 
-    const createAppointement = () => {
-        const formatedDay = format(selectedDay, 'yyyy-MM-dd');
-        const formatedStart = startingTime.format('HH:mm');
-        const formatedEnd = endingTime.format('HH:mm');
+    const changeDay = (day) => {
+        // console.log(day);
+        setSelectedDay(day);
+        disableMinuteByHourAndDay(day, startingTime);
+    }
 
-        axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
-            doctorId: selectedDoctor._id,
-            patientId: user._id,
-            date: [
-                {
-                    date: formatedDay,
-                    startingTime: formatedStart,
-                    endingTime: formatedEnd
-                }
-            ]
-        }).then((res) => {
-            console.log(res);
-            hideAppointementModal();
-        }).catch((err) => {
-            console.log(err);
+
+    function disableMinuteByHourAndDay(day, hour) {
+        // console.log(day);
+        const formatedDay = format(day, 'yyyy-MM-dd');
+        const formatedHour = hour.format('HH');
+
+        // console.log(formatedDay);
+        // console.log(appointement[0].date[0].date.slice(0, 10));
+
+        // console.log(formatedHour);
+
+        const filteredAppointement = appointement.filter((appointement) => {
+            return appointement.date[0].date.slice(0, 10) === formatedDay && appointement.date[0].startingTime.slice(0, 2) === formatedHour;
         })
+
+        // console.log(filteredAppointement);
+
+        const minutes = filteredAppointement.map((appointement) => {
+            return appointement.date[0].startingTime.slice(3, 5);
+        })
+
+        // console.log(minutes);
+
+        setDisabledMinutes(minutes);
+    }
+
+    function disableMinutes() {
+        // For each minutes found in the array, disable it
+        return disabledMinutes.map((minute) => {
+            return parseInt(minute);
+        });
+    }
+
+
+    const createAppointement = () => {
+ 
+        if (selectedDay === undefined || startingTime === undefined || endingTime === undefined) {
+            enqueueSnackbar('Please select a day and a time', { variant: 'error' });
+            return;
+        } else {
+            const formatedDay = format(selectedDay, 'yyyy-MM-dd');
+            const formatedStart = startingTime.format('HH:mm');
+            const formatedEnd = endingTime.format('HH:mm');
+
+            axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
+                doctorId: selectedDoctor._id,
+                patientId: user._id,
+                date: [
+                    {
+                        date: formatedDay,
+                        startingTime: formatedStart,
+                        endingTime: formatedEnd
+                    }
+                ]
+            }).then((res) => {
+                enqueueSnackbar("Appointement created successfully", {
+                    variant: "success",
+                });
+                hideAppointementModal();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
 
     }
 
     React.useEffect(() => {
         getDoctors();
+        getUserAppointments();
     }, []);
 
 
@@ -144,8 +206,10 @@ function Appointement() {
                                             <DayPicker
                                                 mode="single"
                                                 selected={selectedDay}
-                                                onSelect={setSelectedDay}
-                                                disabled={isPastDate} />
+                                                onSelect={changeDay}
+                                                // onChange={changeDay}
+                                                disabled={isPastDate}
+                                            />
                                             {selectedDay && (
                                                 <div className="flex flex-row justify-around">
                                                     <div>
@@ -156,6 +220,7 @@ function Appointement() {
                                                             minuteStep={15}
                                                             onChange={changeSeletecTime}
                                                             disabledHours={disabledHours}
+                                                            disabledMinutes={disableMinutes}
                                                         />
                                                     </div>
                                                     <div>
