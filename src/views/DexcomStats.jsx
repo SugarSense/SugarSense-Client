@@ -49,35 +49,41 @@ const DexcomStats = () => {
 
   return (
     <div className="p-4 ml-64 custom-padding-top">
-      <h1>Dexcom Stats</h1>
-      <p>Here you can see your Dexcom stats</p>
-      <p>Here is your data: </p>
-      <DayPicker
-        mode="single"
-        selected={range}
-        onSelect={
-          (day) => handleDayClick(day)
-        }
-        disabled={isFutureDate}
-      />
-      {!loading && range && (
-        <Line
-          data={{
-            labels: data
-              .reverse()
-              .map((r) => moment(r.systemTime).format("HH:mm")),
-            datasets: [
-              {
-                label: "Glucose Level",
-                data: data.map((r) => r.value),
-                fill: false,
-                backgroundColor: "rgb(255, 99, 132)",
-                borderColor: "rgba(255, 99, 132, 0.2)",
-              },
-            ],
-          }}
+      <div className="flex flex-wrap justify-center shadow-md">
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Dexcom Stats</h1>
+          <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Here you can see your Dexcom stats</p>
+          <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">Here is your data: </p>
+        </div>
+        <DayPicker
+          mode="single"
+          selected={range}
+          onSelect={
+            (day) => handleDayClick(day)
+          }
+          disabled={isFutureDate}
         />
-      )}
+        {!loading && range && (
+          <div className="w-2/3  text-center">
+            <Line
+              data={{
+                labels: data
+                  .reverse()
+                  .map((r) => moment(r.systemTime).format("HH:mm")),
+                datasets: [
+                  {
+                    label: "Glucose Level",
+                    data: data.map((r) => r.value),
+                    fill: false,
+                    backgroundColor: "rgb(255, 99, 132)",
+                    borderColor: "rgba(255, 99, 132, 0.2)",
+                  },
+                ],
+              }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
