@@ -2,6 +2,7 @@ import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { BsGraphUp, BsShareFill } from "react-icons/bs";
 import { RxDashboard } from "react-icons/rx";
+import { FiCalendar } from "react-icons/fi";
 import {
   MdOutlineEditNotifications,
   MdOutlineCastConnected,
@@ -46,8 +47,7 @@ const SideBar = (props) => {
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href=""
-
+                href="/dashboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <RxDashboard size={20} color="#000" />
@@ -56,7 +56,7 @@ const SideBar = (props) => {
             </li>
             <li>
               <a
-                href="/follow-up"
+                href="/dexcomStats"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <BsGraphUp size={20} color="#000" />
@@ -65,11 +65,11 @@ const SideBar = (props) => {
             </li>
             <li>
               <a
-                href="#"
+                href="/appointement"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <BsShareFill size={20} color="#000" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Sharing</span>
+                <FiCalendar size={20} color="#000" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Appointement</span>
               </a>
             </li>
             <li
