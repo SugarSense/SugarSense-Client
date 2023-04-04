@@ -6,7 +6,7 @@ import VerticalBarChart from "../components/verticalBarChart";
 function DataGraphics() {
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <h1>Hello</h1>
       <button
         type="button"
@@ -15,7 +15,6 @@ function DataGraphics() {
         Default
       </button>
       <VerticalBarChart />
-      
     </div>
   );
 }

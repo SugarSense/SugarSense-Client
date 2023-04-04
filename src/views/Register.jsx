@@ -9,6 +9,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [role, setRole] = useState("");
   const {enqueueSnackbar} = useSnackbar();
   const cookies = new Cookies();
 
@@ -22,18 +23,35 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
+      let data = {
         email,
         password,
         firstname,  
         lastname,
-      }).then((res) => {
-        cookies.set("auth_token", res.data.user.token, {path: "/"});
-        enqueueSnackbar("User registered successfully", {
-          variant: "success",
+        verified: false,
+        role: {
+          name: role,
+          confirmedDoctor: false,
+        },
+      };
+      if (role === "Patient") {
+        delete data.role.confirmedDoctor;
+      }
+
+      await axios
+        .post(`${import.meta.env.VITE_API_PATH}/auth/register`, {
+          ...data,
+        })
+        .then((res) => {
+          cookies.set("auth_token", res.data.user.token, {path: "/"});
+          enqueueSnackbar(res.data.message[0], {
+            variant: "success",
+          });
+          enqueueSnackbar(res.data.message[1], {
+            variant: "success",
+          });
+          window.location.href = "/follow-up";
         });
-        window.location.href = "/follow-up";
-      })
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
         variant: "error",
@@ -45,7 +63,7 @@ function Register() {
     <div className="container2">
       <div className="left">
         <div className="header">
-          <h2 className="animation a1">Register</h2>
+          <h1 className="animation a1">Register</h1>
           <h4 className="animation a2">
             Create an account to get access to our services
           </h4>
@@ -72,6 +90,17 @@ function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
+          <select
+            id="roles"
+            className="form-field animation a3"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option selected>Choose a role</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Patient">Patient</option>
+          </select>
           <input
             type="password"
             className="form-field animation a4"

@@ -58,6 +58,24 @@ function FollowUp() {
         setChartData(selectedData);
     }
 
+  const changeData = (e) => {
+    console.log(e.target.value);
+    const selectedData = data.filter(
+      (item) =>
+        item.labels[0] + " - " + item.labels[item.labels.length - 1] ===
+        e.target.value
+    );
+    console.log(selectedData);
+    setAverageWeek(
+      (
+        selectedData[0].data.reduce((a, b) => a + b, 0) /
+        selectedData[0].data.length
+      ).toFixed(0)
+    );
+    setHighestWeek(selectedData[0].maxData.reduce((a, b) => Math.max(a, b)));
+    setLowestWeek(selectedData[0].minData.reduce((a, b) => Math.min(a, b)));
+    setChartData(selectedData);
+  };
 
     return (
         <>
@@ -99,9 +117,11 @@ function FollowUp() {
                 </div>
                 }
             </div>
+          )}
         </div>
-        </>
-    );
+      </div>
+    </>
+  );
 }
 
 export default FollowUp;

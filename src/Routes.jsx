@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import {Routes, Route, BrowserRouter, Navigate} from "react-router-dom";
 import DataGraphics from "./views/DataGraphics";
 import Home from "./views/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -8,6 +8,10 @@ import Connexions from "./views/Connexions";
 import Faq from "./views/Faq";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
+import UserProfile from "./views/UserProfile";
+import Verify from "./views/Verify";
+import {Toaster} from "react-hot-toast";
+import DexcomStats from "./views/DexcomStats";
 import FollowUp from "./views/FollowUp";
 import Dashboard from "./views/Dashboard";
 import Appointement from "./views/Appointement";
@@ -19,13 +23,14 @@ function RoutesProvider() {
   const loggedIn = cookies.get("auth_token");
   return (
     <AuthContextProvider>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
+          <Route path="/verify/:token" element={<Verify />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
@@ -34,6 +39,8 @@ function RoutesProvider() {
             <Route path="/connexions" element={<Connexions />} />
             <Route path="/custom-alert" element={<CustomAlert />} />
             <Route path="/testmail" element={<TestMail />} />
+            <Route path="/myProfile" element={<UserProfile />} />
+            <Route path="/dexcomStats" element={<DexcomStats />} />
           </Route>
         </Routes>
       </BrowserRouter>
