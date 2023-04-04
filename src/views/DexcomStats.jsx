@@ -38,7 +38,9 @@ const DexcomStats = () => {
       {!loading && (
         <Line
           data={{
-            labels: data.map((r) => moment(r.systemTime).format("HH:mm")),
+            labels: data
+              .reverse()
+              .map((r) => moment(r.systemTime).format("HH:mm")),
             datasets: [
               {
                 label: "Glucose Level",

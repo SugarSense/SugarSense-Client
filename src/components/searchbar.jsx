@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { BiBluetooth } from "react-icons/bi";
+import React, {useState} from "react";
+import {ReactSearchAutocomplete} from "react-search-autocomplete";
+import {BiBluetooth} from "react-icons/bi";
 import "../index.css";
 
 const items = [
@@ -44,7 +44,6 @@ const items = [
     description:
       "The Glucofix Tech2K MENARINI meter that guarantees reliable results for both doctors and diabetic patients.",
     bluetooth: false,
-    bluetooth: true,
     batteryPercentage: 95,
     insulinDoses: 9,
     lastSync: "2021-05-01T12:00:00.000Z",
@@ -103,7 +102,7 @@ function SearchBar({}) {
             onSelect={handleOnSelect}
             onFocus={handleOnFocus}
             onClear={handleOnClear}
-            styling={{ zIndex: 4 }}
+            styling={{zIndex: 4}}
             autoFocus
             placeholder="search"
             className="w-4/5"
