@@ -129,32 +129,41 @@ function Dashboard() {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='p-4 ml-64 custom-padding-top'>
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3">
-                                        #
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Doctor Name
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Day
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Hour
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <AppointmentsList appointments={appointement} doctors={doctors} />
-                        </table>
+                appointement.length !== 0 ? (
+                    <div className='p-4 ml-64 custom-padding-top'>
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            #
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Doctor Name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Day
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Hour
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <AppointmentsList appointments={appointement} doctors={doctors} />
+                            </table>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className='p-4 ml-64 custom-padding-top'>
+                        <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                            You don't have any appointments yet
+                        </h2>
+                    </div>
+                )
+
             )}
         </>
     );
