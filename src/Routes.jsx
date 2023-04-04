@@ -4,13 +4,19 @@ import Home from "./views/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import FollowUp from "./views/FollowUp";
+import Connexions from "./views/Connexions";
+import Faq from "./views/Faq";
 import Cookies from "universal-cookie";
 import AuthContextProvider from "./hooks/useAuth";
 import UserProfile from "./views/UserProfile";
 import Verify from "./views/Verify";
 import {Toaster} from "react-hot-toast";
 import DexcomStats from "./views/DexcomStats";
+import FollowUp from "./views/FollowUp";
+import Dashboard from "./views/Dashboard";
+import Appointement from "./views/Appointement";
+import TestMail from "./views/TestMail";
+import CustomAlert from "./views/CustomAlert";
 
 function RoutesProvider() {
   const cookies = new Cookies();
@@ -21,12 +27,18 @@ function RoutesProvider() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify/:token" element={<Verify />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/data-graphics" element={<DataGraphics />} />
             <Route path="/follow-up" element={<FollowUp />} />
+            <Route path="/appointement" element={<Appointement />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/connexions" element={<Connexions />} />
+            <Route path="/custom-alert" element={<CustomAlert />} />
+            <Route path="/testmail" element={<TestMail />} />
             <Route path="/myProfile" element={<UserProfile />} />
             <Route path="/dexcomStats" element={<DexcomStats />} />
           </Route>

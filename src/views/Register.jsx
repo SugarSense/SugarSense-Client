@@ -26,7 +26,7 @@ function Register() {
       let data = {
         email,
         password,
-        firstname,
+        firstname,  
         lastname,
         verified: false,
         role: {

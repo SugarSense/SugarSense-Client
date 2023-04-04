@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,8 +7,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -20,36 +20,33 @@ ChartJS.register(
 );
 
 export const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-        {
-            label: 'Dataset 2',
-            data: [28, 48, 40, 19, 86, 27, 90],
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
-    ],
-}
+  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  datasets: [
+    {
+      label: "Dataset 1",
+      data: [65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "Dataset 2",
+      data: [28, 48, 40, 19, 86, 27, 90],
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
 
 export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: "top",
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: "Chart.js Bar Chart",
     },
   },
 };
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
 
 export default function App() {
   return <Bar options={options} data={data} />;

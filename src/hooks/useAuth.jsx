@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 export const AuthContext = createContext();
@@ -25,6 +25,7 @@ const AuthContextProvider = (props) => {
             .then((res) => {
               setUser(res.data.user);
               setLoading(false);
+
               if (res.data.user.verified === true) {
                 cookies.remove("verify_email_sent");
               }
@@ -45,7 +46,7 @@ const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user}}>
+    <AuthContext.Provider value={{ user }}>
       {!loading && props.children}
     </AuthContext.Provider>
   );

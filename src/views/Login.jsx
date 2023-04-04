@@ -35,7 +35,7 @@ function Login() {
           });
 
           console.log(res.data);
-          window.location.href = "/follow-up";
+          window.location.href = "/dashboard";
         });
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
