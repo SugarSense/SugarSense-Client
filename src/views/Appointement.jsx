@@ -65,7 +65,7 @@ function Appointement() {
     }
 
     const changeSeletecTime = (value) => {
-        // console.log(value);
+        console.log(value);
         setStartingTime(value);
         setEndingTime(moment(value).add(15, 'minutes'));
         // console.log(selectedDay);
@@ -82,10 +82,12 @@ function Appointement() {
 
 
     function disableMinuteByHourAndDay(day, hour) {
-        // console.log(day);
+        console.log(day);
         // console.log(hour);
         const formatedDay = format(day, 'yyyy-MM-dd');
         const formatedHour = hour.format('HH');
+
+        // console.log(formatedDay);
 
         // console.log(appointement[0].date[0].date.slice(0, 10));
 
@@ -117,16 +119,28 @@ function Appointement() {
             enqueueSnackbar('Please select a day and a time', { variant: 'error' });
             return;
         } else {
-            const formatedStart = new Date(startingTime);
-            const formatedEnd = new Date(endingTime);
+            // const formatedStart = new Date(startingTime);
+            // const formatedEnd = new Date(endingTime);
 
-            console.log(formatedStart);
+            // console.log(startingTime.format('HH:mm:ss'));
+
+            // Add the formated date to the selected day
+            // console.log(startingTime.format('HH:mm:ss'));
+            // console.log(endingTime);
+
+            const formatedStart = moment(startingTime).format('HH:mm:ss');
+            const formatedEnd = moment(endingTime).format('HH:mm:ss');
+            
+            //Add the day to the formated date
+            const formatedStartWithDay = moment(selectedDay).format('YYYY-MM-DD') + ' ' + formatedStart;
+            const formatedEndWithDay = moment(selectedDay).format('YYYY-MM-DD') + ' ' + formatedEnd;
+
 
             axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
                 doctorId: selectedDoctor._id,
                 patientId: user._id,
-                startingTime: formatedStart,
-                endingTime: formatedEnd
+                startingTime: formatedStartWithDay,
+                endingTime: formatedEndWithDay
             }).then((res) => {
                 enqueueSnackbar("Appointement created successfully", {
                     variant: "success",
