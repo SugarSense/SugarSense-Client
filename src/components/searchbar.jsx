@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { BiBluetooth } from "react-icons/bi";
 import "../index.css";
@@ -28,22 +28,9 @@ function SearchBar({}) {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = React.useState(false);
-  const [glucoseMeters, setGlucoseMeters] = useState([]);
   const [data, setData] = useState([]);
   const [item, setItems] = useState([]);
   const { user } = useAuth();
-
-  const getGlucoseMetersFromUser = async (userId) => {
-    try {
-      const res = await axios.get(
-        `http://localhost:9001/users/${userId}/glucoseMeters`
-      );
-      return res.data;
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  };
 
   const getGlucoseMetersData = async () => {
     try {
@@ -72,13 +59,65 @@ function SearchBar({}) {
     getGlucoseMetersData();
   }, []);
 
-  const handleOnSelect = (item) => {
+  const handleOnSelect = async (item) => {
     setSelectedItem(item);
+    setIsClicked(!isClicked);
+    console.log(item);
+    try {
+      // récupérer l'id du glucosemeter
+      const glucoseMeterId = item._id;
+      // récupérer l'id de l'utilisateur
+      const userId = user._id;
+      // récupérer la table userId du glucosemeter actuel
+      const glucoseMeter = await axios.get(
+        `http://localhost:9001/glucoseMeters/${glucoseMeterId}`
+      );
+      const glucoseMeterUserId = glucoseMeter.data.userId;
+      console.log(glucoseMeterUserId);
+      console.log(glucoseMeterId);
+
+      if (glucoseMeterUserId === null) {
+        await axios.put(
+          `http://localhost:9001/glucoseMeters/addUserID/${glucoseMeterId}`,
+          {
+            userId: userId,
+          }
+        );
+        console.log("Glucosemeter added");
+      } else {
+        console.log("Glucosemeter already added");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleDeleteButtonClick = () => {
+  const handleDeleteButtonClick = async () => {
     setSelectedItem(!selectedItem);
-    setIsClicked(!isClicked);
+    try {
+      // récupérer l'id du glucosemeter
+      const glucoseMeterId = selectedItem._id;
+      // récupérer l'id de l'utilisateur
+      const userId = user._id;
+      // récupérer la table userId du glucosemeter actuel
+      const glucoseMeter = await axios.get(
+        `http://localhost:9001/glucoseMeters/${glucoseMeterId}`
+      );
+      const glucoseMeterUserId = glucoseMeter.data.userId;
+      console.log(glucoseMeterUserId);
+      console.log(glucoseMeterId);
+      console.log(userId);
+      await axios.put(
+        `http://localhost:9001/glucoseMeters/deleteUserID/${glucoseMeterId}`,
+        {
+          userId: userId,
+        }
+      );
+      console.log("Glucosemeter deleted");
+      // mise à jour de la liste des glucosemètres pour afficher les modifications
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleGeolocationButtonClick = () => {
@@ -115,8 +154,6 @@ function SearchBar({}) {
   const svgIconLocation = locationAvailable
     ? "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
     : "M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z";
-
-  console.log(selectedItem);
 
   return (
     <div className="px-4 pt-24 ml-64 font-worksans">
