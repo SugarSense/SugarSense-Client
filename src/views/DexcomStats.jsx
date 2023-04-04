@@ -13,6 +13,9 @@ const DexcomStats = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState({});
+  const [averageDay, setAverageDay] = useState([]);
+  const [highestDay, setHighestDay] = useState([]);
+  const [lowestDay, setLowestDay] = useState([]);
 
   useEffect(() => {
     handleDayClick();
@@ -36,6 +39,12 @@ const DexcomStats = () => {
       .then((res) => {
         setData(res.data.records);
         console.log(res.data.records);
+        const max = Math.max(...res.data.records.map((r) => r.value));
+        const min = Math.min(...res.data.records.map((r) => r.value));
+        const average = res.data.records.reduce((a, b) => a + b.value, 0) / res.data.records.length;
+        setHighestDay(max);
+        setLowestDay(min);
+        setAverageDay(average.toFixed(0));
         setLoading(false);
       })
       .catch((err) => {
@@ -81,6 +90,46 @@ const DexcomStats = () => {
                 ],
               }}
             />
+          </div>
+        )}
+        {data.length === 0 ? null : (
+          <div
+            id="fullWidthTabContent"
+            className="border-t border-gray-200 dark:border-gray-600"
+          >
+            <div
+              className="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+              id="stats"
+              role="tabpanel"
+              aria-labelledby="stats-tab"
+            >
+              <dl className="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-3 dark:text-white sm:p-8">
+                <div className="flex flex-col items-center justify-center">
+                  <dt className="mb-2 text-3xl font-extrabold">
+                    {averageDay}
+                  </dt>
+                  <dd className="text-gray-500 dark:text-gray-400">
+                    Average
+                  </dd>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <dt className="mb-2 text-3xl font-extrabold">
+                    {highestDay}
+                  </dt>
+                  <dd className="text-gray-500 dark:text-gray-400">
+                    Highest pick
+                  </dd>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <dt className="mb-2 text-3xl font-extrabold">
+                    {lowestDay}
+                  </dt>
+                  <dd className="text-gray-500 dark:text-gray-400">
+                    Lowest pick
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
         )}
       </div>
