@@ -244,6 +244,17 @@ function Dashboard() {
       toast.error("You need to verify your account first !");
     }
   };
+
+  const handleLoginDexcom = () => {
+    if (user.verified) {
+      window.location.href = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${
+        import.meta.env.VITE_DEXCOM_CLIENT_ID
+      }&redirect_uri=http://localhost:5173/dexcomStats&response_type=code&scope=offline_access&state=offline_access`;
+    } else {
+      toast.error("You need to verify your account first !");
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -375,6 +386,13 @@ function Dashboard() {
                       <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">
                         Please link your Dexcom account
                       </p>
+                      <button
+                        type="button"
+                        class="text-white mt-4 w-44 sm:w-44 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                        onClick={() => handleLoginDexcom()}
+                      >
+                        Connect to Dexcom
+                      </button>
                     </div>
                   </div>
                 </>
