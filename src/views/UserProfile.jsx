@@ -234,7 +234,7 @@ const UserProfile = () => {
                   onClick={() =>
                     (window.location.href = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${
                       import.meta.env.VITE_DEXCOM_CLIENT_ID
-                    }&redirect_uri=http://localhost:5173/myProfile&response_type=code&scope=offline_access&state=offline_access`)
+                    }&redirect_uri=http://localhost:5173/dexcomStats&response_type=code&scope=offline_access&state=offline_access`)
                   }
                 >
                   Connect to Dexcom
