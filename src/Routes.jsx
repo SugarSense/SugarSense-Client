@@ -53,12 +53,10 @@ function RoutesProvider() {
             <Route path="/testmail" element={<TestMail />} />
             <Route path="/myProfile" element={<UserProfile />} />
             <Route path="/dexcomStats" element={<DexcomStats />} />
-          </Route>
-          {role === "Doctor" && (
-            <Route element={<PrivateRoutes />}>
+            {role === "Doctor" && (
               <Route path="/doctor-appointement" element={<Appointements />} />
-            </Route>
-          )}
+            )}
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
