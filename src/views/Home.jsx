@@ -83,7 +83,7 @@ function Home() {
             className="mr-2"
           >
             <img
-              src="https://www.mysugr.com/static/assets/stores/google-play.svg"
+              src="https://www.mysugr.com/static/assets/stores/apple-store.svg"
               alt="Download on the App Store"
             />
           </a>
@@ -93,7 +93,7 @@ function Home() {
             rel="noopener noreferrer"
           >
             <img
-              src="https://www.mysugr.com/static/assets/stores/apple-store.svg"
+              src="https://www.mysugr.com/static/assets/stores/google-play.svg"
               alt="Get it on Google Play"
             />
           </a>
