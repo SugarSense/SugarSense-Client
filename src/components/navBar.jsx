@@ -1,25 +1,25 @@
-import { BiLogOut } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
-import { BsGraphUp, BsShareFill } from "react-icons/bs";
-import { RxDashboard } from "react-icons/rx";
-import { FiCalendar } from "react-icons/fi";
+import {BiLogOut} from "react-icons/bi";
+import {CgProfile} from "react-icons/cg";
+import {BsGraphUp, BsShareFill} from "react-icons/bs";
+import {RxDashboard} from "react-icons/rx";
+import {FiCalendar} from "react-icons/fi";
 import {
   MdOutlineEditNotifications,
   MdOutlineCastConnected,
 } from "react-icons/md";
 import React from "react";
 import Cookies from "universal-cookie";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import {Navigate} from "react-router-dom";
+import {useAuth} from "../hooks/useAuth";
 
 const SideBar = (props) => {
   const cookies = new Cookies();
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const handleLogout = async () => {
     try {
-      cookies.remove("auth_token", { path: "/" });
-      cookies.remove("verify_email_sent", { path: "/" });
+      cookies.remove("auth_token", {path: "/"});
+      cookies.remove("verify_email_sent", {path: "/"});
       window.location.href = "/login";
     } catch (error) {
       console.log(error);

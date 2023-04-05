@@ -34,7 +34,7 @@ function Home() {
           </a>
           {cookies.get("auth_token") ? (
             <>
-              <a href="/follow-up" className="text-xl mr-10">
+              <a href="/dashboard" className="text-xl mr-10">
                 Dashboard
               </a>
             </>
@@ -63,7 +63,9 @@ function Home() {
             <button
               className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 mr-2 my-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-48"
               onClick={() => {
-                window.location.href = "/register";
+                !cookies.get("auth_token")
+                  ? (window.location.href = "/register")
+                  : (window.location.href = "/dashboard");
               }}
             >
               Get Started
