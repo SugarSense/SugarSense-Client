@@ -3,7 +3,6 @@ import "./index.css";
 import RoutesProvider from "./Routes";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import {useAuth} from "./hooks/useAuth";
 
 function App() {
   const cookies = new Cookies();

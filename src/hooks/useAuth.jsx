@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
-const AuthContextProvider = (props) => {
+const AuthContextProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const cookies = new Cookies();
@@ -47,7 +47,7 @@ const AuthContextProvider = (props) => {
 
   return (
     <AuthContext.Provider value={{user}}>
-      {!loading && props.children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

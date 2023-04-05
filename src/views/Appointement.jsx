@@ -65,9 +65,12 @@ function Appointement() {
     }
 
     const changeSeletecTime = (value) => {
-        // console.log(value);
+        console.log(value);
         setStartingTime(value);
         setEndingTime(moment(value).add(15, 'minutes'));
+        // console.log(selectedDay);
+        // console.log(value);
+
         disableMinuteByHourAndDay(selectedDay, value);
     }
 
@@ -79,26 +82,25 @@ function Appointement() {
 
 
     function disableMinuteByHourAndDay(day, hour) {
-        // console.log(day);
+        console.log(day);
+        // console.log(hour);
         const formatedDay = format(day, 'yyyy-MM-dd');
         const formatedHour = hour.format('HH');
 
         // console.log(formatedDay);
+
         // console.log(appointement[0].date[0].date.slice(0, 10));
 
-        // console.log(formatedHour);
 
         const filteredAppointement = appointement.filter((appointement) => {
-            return appointement.date[0].date.slice(0, 10) === formatedDay && appointement.date[0].startingTime.slice(0, 2) === formatedHour;
+            return appointement.startingTime.slice(0,10)== formatedDay && appointement.startingTime.slice(11, 13) == formatedHour;
         })
 
-        // console.log(filteredAppointement);
 
         const minutes = filteredAppointement.map((appointement) => {
-            return appointement.date[0].startingTime.slice(3, 5);
+            return appointement.startingTime.slice(14, 16);
         })
 
-        // console.log(minutes);
 
         setDisabledMinutes(minutes);
     }
@@ -112,25 +114,33 @@ function Appointement() {
 
 
     const createAppointement = () => {
- 
+
         if (selectedDay === undefined || startingTime === undefined || endingTime === undefined) {
             enqueueSnackbar('Please select a day and a time', { variant: 'error' });
             return;
         } else {
-            const formatedDay = format(selectedDay, 'yyyy-MM-dd');
-            const formatedStart = startingTime.format('HH:mm');
-            const formatedEnd = endingTime.format('HH:mm');
+            // const formatedStart = new Date(startingTime);
+            // const formatedEnd = new Date(endingTime);
+
+            // console.log(startingTime.format('HH:mm:ss'));
+
+            // Add the formated date to the selected day
+            // console.log(startingTime.format('HH:mm:ss'));
+            // console.log(endingTime);
+
+            const formatedStart = moment(startingTime).format('HH:mm:ss');
+            const formatedEnd = moment(endingTime).format('HH:mm:ss');
+            
+            //Add the day to the formated date
+            const formatedStartWithDay = moment(selectedDay).format('YYYY-MM-DD') + ' ' + formatedStart;
+            const formatedEndWithDay = moment(selectedDay).format('YYYY-MM-DD') + ' ' + formatedEnd;
+
 
             axios.post(`${import.meta.env.VITE_API_PATH}/appointement`, {
                 doctorId: selectedDoctor._id,
                 patientId: user._id,
-                date: [
-                    {
-                        date: formatedDay,
-                        startingTime: formatedStart,
-                        endingTime: formatedEnd
-                    }
-                ]
+                startingTime: formatedStartWithDay,
+                endingTime: formatedEndWithDay
             }).then((res) => {
                 enqueueSnackbar("Appointement created successfully", {
                     variant: "success",
@@ -153,6 +163,8 @@ function Appointement() {
         <><NavBar />
             <div className='p-4 ml-64 custom-padding-top'>
                 <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+                    <h1 className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>Appointements</h1>
+                    <p className='text-sm text-gray-500 dark:text-gray-400'>Here you can create appointement with the doctor of your choice</p>
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
