@@ -26,7 +26,7 @@ function Register() {
       let data = {
         email,
         password,
-        firstname,  
+        firstname,
         lastname,
         verified: false,
         role: {
@@ -50,7 +50,7 @@ function Register() {
           enqueueSnackbar(res.data.message[1], {
             variant: "success",
           });
-          window.location.href = "/follow-up";
+          window.location.href = "/dashboard";
         });
     } catch (err) {
       enqueueSnackbar(err.response.data.message, {
