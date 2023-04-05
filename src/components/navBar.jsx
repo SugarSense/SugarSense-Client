@@ -26,7 +26,6 @@ const SideBar = (props) => {
     }
   };
 
-
   return (
     <>
       <aside

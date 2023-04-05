@@ -57,6 +57,7 @@ function RoutesProvider() {
               <Route path="/doctor-appointement" element={<Appointements />} />
             )}
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>
