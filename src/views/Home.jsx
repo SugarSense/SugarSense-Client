@@ -60,7 +60,12 @@ function Home() {
           <div>
             <h2 className="text-8xl font-bold">SugarSense</h2>
             <p className="text-3xl">The life is sweeter with us</p>
-            <button className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 mr-2 my-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-48">
+            <button
+              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 mr-2 my-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-48"
+              onClick={() => {
+                window.location.href = "/register";
+              }}
+            >
               Get Started
             </button>
           </div>
