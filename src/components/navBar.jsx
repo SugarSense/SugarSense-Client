@@ -1,25 +1,25 @@
-import {BiLogOut} from "react-icons/bi";
-import {CgProfile} from "react-icons/cg";
-import {BsGraphUp, BsShareFill} from "react-icons/bs";
-import {RxDashboard} from "react-icons/rx";
-import {FiCalendar} from "react-icons/fi";
+import { BiLogOut } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
+import { BsGraphUp, BsShareFill } from "react-icons/bs";
+import { RxDashboard } from "react-icons/rx";
+import { FiCalendar } from "react-icons/fi";
 import {
   MdOutlineEditNotifications,
   MdOutlineCastConnected,
 } from "react-icons/md";
 import React from "react";
 import Cookies from "universal-cookie";
-import {Navigate} from "react-router-dom";
-import {useAuth} from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const SideBar = (props) => {
   const cookies = new Cookies();
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const handleLogout = async () => {
     try {
-      cookies.remove("auth_token", {path: "/"});
-      cookies.remove("verify_email_sent", {path: "/"});
+      cookies.remove("auth_token", { path: "/" });
+      cookies.remove("verify_email_sent", { path: "/" });
       window.location.href = "/login";
     } catch (error) {
       console.log(error);
@@ -62,6 +62,24 @@ const SideBar = (props) => {
               >
                 <BsGraphUp size={20} color="#000" />
                 <span className="flex-1 ml-3 whitespace-nowrap">Follow up</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/custom-alert"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <MdOutlineEditNotifications size={20} color="#000" />
+                <span class="flex-1 ml-3 whitespace-nowrap">Custom Alert</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/connexion"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <MdOutlineCastConnected size={20} color="#000" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Connexion</span>
               </a>
             </li>
             <li>
