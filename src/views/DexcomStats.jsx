@@ -17,9 +17,9 @@ const DexcomStats = () => {
   const [highestDay, setHighestDay] = useState([]);
   const [lowestDay, setLowestDay] = useState([]);
 
-  useEffect(() => {
-    handleDayClick();
-  }, [user.dexcomToken]);
+  // useEffect(() => {
+  //   handleDayClick();
+  // }, [user.dexcomToken]);
 
   const handleDayClick = async (day) => {
     setRange(day);
@@ -37,7 +37,7 @@ const DexcomStats = () => {
           },
         })
       .then((res) => {
-        setData(res.data.records);
+        setData(res.data.records || []);
         console.log(res.data.records);
         const max = Math.max(...res.data.records.map((r) => r.value));
         const min = Math.min(...res.data.records.map((r) => r.value));
