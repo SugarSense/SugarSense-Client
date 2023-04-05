@@ -1,0 +1,20 @@
+.rbc-toolbar button{
+    background-color: #D1D5DB;
+    color: #1F2937;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    padding: 0.255rem 0.625rem;
+    border-radius: 0.175rem;
+}
+
+.rbc-btn-group > button:first-child:not(:last-child),
+.rbc-btn-group > button:not(:first-child):not(:last-child),
+.rbc-btn-group > button:last-child:not(:first-child) {
+    border-radius: 0.175rem;
+}
+
+.rbc-toolbar button.rbc-active, .rbc-toolbar button.rbc-active:focus,.rbc-toolbar button:hover{
+    background-color: #173056;
+    color: #ffffff;
+}
