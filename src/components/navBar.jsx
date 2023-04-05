@@ -26,6 +26,7 @@ const SideBar = (props) => {
     }
   };
 
+
   return (
     <>
       <aside
@@ -85,7 +86,7 @@ const SideBar = (props) => {
             <li>
               <a
                 href={
-                  user.role === "Patient"
+                  user.role.name === "Patient"
                     ? "/appointement"
                     : "/doctor-appointement"
                 }
