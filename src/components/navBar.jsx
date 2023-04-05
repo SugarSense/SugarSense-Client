@@ -34,7 +34,7 @@ const SideBar = (props) => {
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
           <div className="flex p-2 pb-6 items-center justify-start">
-            <a href="https://flowbite.com" className="flex md:mr-24">
+            <a href="" className="flex md:mr-24">
               <img
                 src="https://flowbite.com/docs/images/logo.svg"
                 className="h-8 mr-3"
