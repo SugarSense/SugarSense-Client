@@ -1,4 +1,4 @@
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar";
 import axios from "axios";
 import {useAuth} from "../hooks/useAuth";
 
@@ -8,6 +8,7 @@ import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 import {Line} from "react-chartjs-2";
 import moment from "moment";
 import {format} from "date-fns";
+import {Toaster, toast} from "react-hot-toast";
 
 function Dashboard() {
   const [appointement, setAppointement] = useState([]);
@@ -170,14 +171,15 @@ function Dashboard() {
                   </td>
                   <td className="px-6 py-4">{doctor.specialization}</td>
                   <td className="px-6 py-4">
-                    <a
-                      href="/appointement"
+                    <button
+                      // href="/appointement"
+                      onClick={() => handleAppointment()}
                       className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     >
                       <span className="flex-1 ml-3 whitespace-nowrap">
                         Appointement
                       </span>
-                    </a>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -235,9 +237,17 @@ function Dashboard() {
     getGlucoseLevel();
   }, []);
 
+  const handleAppointment = () => {
+    if (user.verified) {
+      window.location.href = "/appointement";
+    } else {
+      toast.error("You need to verify your account first !");
+    }
+  };
   return (
     <>
       <NavBar />
+      <Toaster />
       {loading ? (
         <p>Loading...</p>
       ) : (

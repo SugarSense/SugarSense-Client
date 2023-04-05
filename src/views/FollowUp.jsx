@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../index.css";
 import AreaCharts from "../components/areaChart";
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar";
 import axios from "axios";
 import {useAuth} from "../hooks/useAuth";
 

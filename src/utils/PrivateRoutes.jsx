@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Outlet, Navigate} from "react-router-dom";
 import Cookies from "universal-cookie";
-import SideBar from "../components/navBar";
+import SideBar from "../components/NavBar";
 import {useAuth} from "../hooks/useAuth";
 import VerifyEmail from "../components/VerifyEmail";
 

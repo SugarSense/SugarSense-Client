@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "../components/searchbar";
-import NavBar from "../components/navbar";
+import NavBar from "../components/NavBar";
 import "../index.css";
 
 function Connexion() {

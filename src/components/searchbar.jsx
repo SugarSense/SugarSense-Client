@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { BiBluetooth } from "react-icons/bi";
+import React, {useState, useEffect} from "react";
+import {ReactSearchAutocomplete} from "react-search-autocomplete";
+import {BiBluetooth} from "react-icons/bi";
 import "../index.css";
 import axios from "axios";
 
-import { useAuth } from "../hooks/useAuth";
+import {useAuth} from "../hooks/useAuth";
 
 const handleOnSearch = (string, results) => {
   //console.log(string, results);
@@ -30,7 +30,7 @@ function SearchBar({}) {
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState([]);
   const [item, setItems] = useState([]);
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const getGlucoseMetersData = async () => {
     try {
@@ -55,7 +55,7 @@ function SearchBar({}) {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getGlucoseMetersData();
   }, []);
 
@@ -124,8 +124,8 @@ function SearchBar({}) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
+          const {latitude, longitude} = position.coords;
+          setLocation({latitude, longitude});
           setErrorMessage(null);
         },
         (error) => {
@@ -178,7 +178,7 @@ function SearchBar({}) {
               onSelect={handleOnSelect}
               onFocus={handleOnFocus}
               onClear={handleOnClear}
-              styling={{ zIndex: 4 }}
+              styling={{zIndex: 4}}
               autoFocus
               placeholder="search"
               className="w-4/5"

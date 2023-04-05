@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css";
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar";
 import VerticalBarChart from "../components/verticalBarChart";
 
 function DataGraphics() {

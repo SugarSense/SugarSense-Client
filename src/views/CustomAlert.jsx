@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import "../index.css";
-import { useAuth } from "../hooks/useAuth";
-import NavBar from "../components/navBar";
-import { MdOutlineEditNotifications } from "react-icons/md";
+import {useAuth} from "../hooks/useAuth";
+import NavBar from "../components/NavBar";
+import {MdOutlineEditNotifications} from "react-icons/md";
 
 function CustomAlert() {
-  const { user } = useAuth();
+  const {user} = useAuth();
   const [userData, setUserData] = useState(null);
   const [data, setData] = useState(null);
   const [alertType, setAlertType] = useState("Today");
